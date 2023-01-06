@@ -90,3 +90,6 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+## Checklist
+See [CHECKLIST.md](https://github.com/harshnehal1996/ML_OPS/tree/main/reports/README.md)
