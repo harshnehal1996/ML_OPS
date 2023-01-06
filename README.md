@@ -29,6 +29,7 @@ Since we chose a Computer Vision problem, we plan to use the [PyTorch Image Mode
 
 We are using the [Cityscapes GTfine dataset](https://www.kaggle.com/datasets/xiaose/cityscapes) from kaggle. An example of one of the images is as shown:
 <p align="center"><img src="reports\figures\cityscape_example.png" alt="city_seg" width="800" height="440"/>
+
 There are 3475 finely annotated images including train and validation. There are 1525 finely annotated test data.
 
 ### Deep Learning Model
