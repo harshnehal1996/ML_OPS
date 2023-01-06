@@ -1,14 +1,14 @@
 MLOps_Project - Semantic Understanding of Urban Street Scenes using Computer Vision
 ==============================
 
-Harsh Rai
-Joshua Sebastian
-Navaneeth KP
-Reczulski Michal 
+* Harsh Rai
+* Joshua Sebastian
+* Navaneeth KP
+* Reczulski Michal 
 
 ### Project Goal
 
-The goal of the project is to use Computer Vision for semantic segmentation of Cityscapes Dataset to segment into classes: 
+The goal of the project is to use Computer Vision for semantic segmentation of Cityscapes Dataset to segment into the following classes: 
 * person
 * road
 * building
@@ -23,23 +23,19 @@ The goal of the project is to use Computer Vision for semantic segmentation of C
 
 ### Framework
 
-Since we chose a Computer Vision problem, we plan to use the [PyTorch Image Models](https://github.com/rwightman/pytorch-image-models) and [segmentation_models.pytorch](https://github.com/qubvel/segmentation_models.pytorch) framework.
-
-### How to you intend to include the framework into your project
-
-We plan on utilizing one of the PyTorch Image Models framework which is that it provides thousands of pretrained models to perform different tasks. As a starting point we intend to use some of the pretrained models on our data and then see how we can further improve from there.
+Since we chose a Computer Vision problem, we plan to use the [PyTorch Image Models](https://github.com/rwightman/pytorch-image-models) and [segmentation_models.pytorch](https://github.com/qubvel/segmentation_models.pytorch) framework.  To build the model we are going to use latter which is built on top of the Pytorch Image model framework.
 
 ### Data
 
-We are using the Cityscapes GTfine dataset from kaggle. An example of one of the images is as shown:
+We are using the [Cityscapes GTfine dataset](https://www.kaggle.com/datasets/xiaose/cityscapes) from kaggle . An example of one of the images is as shown:
 <p align="center"><img src="reports\figures\cityscape_example.png" alt="city_seg" width="800" height="440"/>
 There are 3475 finely annotated images including train and validation. There are 1525 finely annotated test data.
 
 ### Deep Learning Model
 
-We plan to use timm-efficientnet-b2 as an encoder as it has 7M parameters which are pretrained and Unet as decoder which has 4 Million parameters required to be trained. The segmentation_head APIwill create the mask. To build the model we are going to use the segmentation_models.pytorch which is built on top of the Pytorch Image model framework.
+We plan to use timm-efficientnet-b2 as an encoder as it has 7M parameters which are pretrained and Unet as decoder which has 4 Million parameters required to be trained. The segmentation_head API from segmentation_models.pytorch will help us define the number of channels in the output mask.
 
-TIMM models are scriptable and exportable. Hence we are using torchFX to visualize output of different layers. The trained models will be exported to ONNX format. TIMM also provides the functionality to build data augmentation pipelines.
+TIMM models are scriptable and exportable. Hence we plan to use torchFX to visualize output of different layers. The trained models will be exported to ONNX format. TIMM also provides the functionality to build data augmentation pipelines.
 
 Project Organization
 ------------
