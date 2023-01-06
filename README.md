@@ -23,12 +23,13 @@ The goal of the project is to use Computer Vision for semantic segmentation of C
 
 ### Framework
 
-Since we chose a Computer Vision problem, we plan to use the [PyTorch Image Models](https://github.com/rwightman/pytorch-image-models) and [segmentation_models.pytorch](https://github.com/qubvel/segmentation_models.pytorch) framework.  To build the model we are going to use latter which is built on top of the Pytorch Image model framework.
+Since we chose a Computer Vision problem, we plan to use the [PyTorch Image Models](https://github.com/rwightman/pytorch-image-models) and [segmentation_models.pytorch](https://github.com/qubvel/segmentation_models.pytorch) framework. To build the model we are going to use latter which is built on top of the Pytorch Image model framework.
 
 ### Data
 
-We are using the [Cityscapes GTfine dataset](https://www.kaggle.com/datasets/xiaose/cityscapes) from kaggle . An example of one of the images is as shown:
+We are using the [Cityscapes GTfine dataset](https://www.kaggle.com/datasets/xiaose/cityscapes) from kaggle. An example of one of the images is as shown:
 <p align="center"><img src="reports\figures\cityscape_example.png" alt="city_seg" width="800" height="440"/>
+
 There are 3475 finely annotated images including train and validation. There are 1525 finely annotated test data.
 
 ### Deep Learning Model
