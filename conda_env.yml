@@ -5,7 +5,15 @@ channels:
   - defaults
 dependencies:
   - _libgcc_mutex=0.1
+  - anyio=3.5.0
+  - argon2-cffi=21.3.0
+  - argon2-cffi-bindings=21.2.0
+  - asttokens=2.0.5
+  - attrs=22.1.0
+  - backcall=0.2.0
+  - beautifulsoup4=4.11.1
   - blas=1.0
+  - bleach=4.1.0
   - brotli=1.0.9
   - brotlipy=0.7.0
   - bzip2=1.0.8
@@ -14,10 +22,16 @@ dependencies:
   - cffi=1.15.0
   - charset-normalizer=2.0.4
   - click=8.0.4
+  - comm=0.1.2
   - coverage=6.3.2
   - cryptography=38.0.4
   - cycler=0.11.0
   - dbus=1.13.18
+  - debugpy=1.5.1
+  - decorator=5.1.1
+  - defusedxml=0.7.1
+  - entrypoints=0.4
+  - executing=0.8.3
   - expat=2.4.4
   - flake8=4.0.1
   - flit-core=3.6.0
@@ -34,7 +48,19 @@ dependencies:
   - idna=3.4
   - importlib-metadata=4.11.3
   - intel-openmp=2021.4.0
+  - ipykernel=6.19.2
+  - ipython=8.7.0
+  - ipython_genutils=0.2.0
+  - ipywidgets=7.6.5
+  - jedi=0.18.1
+  - jinja2=3.1.2
   - jpeg=9e
+  - jsonschema=4.16.0
+  - jupyter_client=7.2.2
+  - jupyter_core=5.1.1
+  - jupyter_server=1.23.4
+  - jupyterlab_pygments=0.1.2
+  - jupyterlab_widgets=1.0.0
   - kiwisolver=1.4.2
   - lame=3.100
   - lcms2=2.12
@@ -44,6 +70,7 @@ dependencies:
   - libiconv=1.16
   - libidn2=2.3.2
   - libpng=1.6.37
+  - libsodium=1.0.18
   - libstdcxx-ng=9.1.0
   - libtasn1=4.16.0
   - libtiff=4.2.0
@@ -53,50 +80,89 @@ dependencies:
   - libwebp-base=1.2.2
   - libxcb=1.15
   - libxml2=2.9.14
+  - libxslt=1.1.35
+  - lxml=4.8.0
   - lz4-c=1.9.3
+  - markupsafe=2.1.1
   - matplotlib=3.5.1
   - matplotlib-base=3.5.1
+  - matplotlib-inline=0.1.6
   - mccabe=0.7.0
+  - mistune=0.8.4
   - mkl=2021.4.0
   - mkl-service=2.4.0
   - mkl_fft=1.3.1
   - mkl_random=1.2.2
   - munkres=1.1.4
+  - nbclassic=0.4.8
+  - nbclient=0.5.13
+  - nbconvert=6.5.4
+  - nbformat=5.7.0
   - ncurses=6.3
+  - nest-asyncio=1.5.6
   - nettle=3.7.3
+  - notebook=6.5.2
+  - notebook-shim=0.2.2
   - numpy=1.22.3
   - numpy-base=1.22.3
   - openh264=2.1.1
   - openssl=1.1.1s
   - packaging=22.0
+  - pandocfilters=1.5.0
+  - parso=0.8.3
   - pcre=8.45
+  - pexpect=4.8.0
+  - pickleshare=0.7.5
   - pillow=9.0.1
   - pip=22.3.1
+  - platformdirs=2.5.2
+  - prometheus_client=0.14.1
+  - prompt-toolkit=3.0.36
+  - psutil=5.8.0
+  - ptyprocess=0.7.0
+  - pure_eval=0.2.2
   - pycodestyle=2.8.0
   - pycparser=2.21
   - pyflakes=2.4.0
+  - pygments=2.11.2
   - pyopenssl=22.0.0
   - pyparsing=3.0.9
   - pyqt=5.9.2
+  - pyrsistent=0.18.0
   - pysocks=1.7.1
   - python=3.10.4
   - python-dateutil=2.8.2
   - python-dotenv=0.21.0
+  - python-fastjsonschema=2.16.2
+  - pyzmq=22.3.0
   - qt=5.9.7
   - readline=8.1.2
   - requests=2.28.1
+  - send2trash=1.8.0
   - setuptools=65.6.3
   - sip=4.19.13
   - six=1.16.0
+  - sniffio=1.2.0
+  - soupsieve=2.3.2.post1
   - sqlite=3.38.5
+  - stack_data=0.2.0
+  - terminado=0.17.1
+  - tinycss2=1.2.1
   - tk=8.6.12
   - tornado=6.1
+  - traitlets=5.7.1
+  - typing-extensions=4.4.0
   - typing_extensions=4.4.0
   - tzdata=2022g
   - urllib3=1.26.13
+  - wcwidth=0.2.5
+  - webencodings=0.5.1
+  - websocket-client=0.58.0
   - wget=1.21.3
   - wheel=0.37.1
+  - widgetsnbextension=3.5.2
   - xz=5.2.5
+  - zeromq=4.3.4
   - zipp=3.11.0
   - zlib=1.2.12
   - zstd=1.5.2
@@ -161,6 +227,7 @@ dependencies:
     - cfgv==3.3.1
     - distlib==0.3.6
     - efficientnet-pytorch==0.7.1
+    - fastjsonschema==2.16.2
     - filelock==3.9.0
     - huggingface-hub==0.11.1
     - identify==2.5.13
@@ -168,7 +235,6 @@ dependencies:
     - mypy-extensions==0.4.3
     - nodeenv==1.7.0
     - pathspec==0.10.3
-    - platformdirs==2.6.2
     - pre-commit==2.21.0
     - pretrainedmodels==0.7.4
     - pyyaml==6.0
