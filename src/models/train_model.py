@@ -14,9 +14,9 @@ from .utils import parse_inputs, load_model, save_checkpoint
 def train(config) -> None:
     # set up the training parameters from the config files
     args = parse_inputs(config)
-    
+
     # initialize the model
-    model = SegmentationModel(config.decoder.hyperparameters)
+    model = SegmentationModel(config.training.unet.b3.hyperparameters)
     dataset = get_train_data()
     n = len(dataset)
     tslen = int(n / 4)
@@ -57,6 +57,9 @@ def train(config) -> None:
         print('\nEpoch: {}'.format(i))
         train_logs = train_epoch.run(trainloader)
         valid_logs = valid_epoch.run(valloader)
+
+        print('train_log : ', train_logs)
+        print('valid_log : ', valid_logs)
         
         if max_score < valid_logs[best_metric]:
             max_score = valid_logs[best_metric]

@@ -1,5 +1,5 @@
 hyperparameters:
-    decoder: "Unet"
+    decoder: "FPN"
     epochs: 1
     encoder: "efficientnet-b0"
     encoder_depth: 5
@@ -9,7 +9,7 @@ hyperparameters:
     loss_function: "JaccardLoss"
     batch_size: 32
     lr: 0.01
-    lr_scheduler:
+    lr_scheduler: 
     seed:
     metrics: |
       IoU
