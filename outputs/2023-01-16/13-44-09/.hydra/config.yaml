@@ -1,0 +1,23 @@
+decoder:
+  hyperparameters:
+    decoder: Unet
+    epochs: 1
+    encoder: efficientnet-b0
+    encoder_depth: 5
+    cuda: true
+    checkpoint_path: null
+    downsample_ratio: 4
+    loss_function: JaccardLoss
+    batch_size: 32
+    lr: 0.01
+    lr_scheduler: null
+    seed: null
+    metrics: 'IoU
+
+      Accuracy
+
+      '
+    classes: 11
+    checkpoint_frequency: 5
+    activation: softmax2d
+    best_metric: IoU

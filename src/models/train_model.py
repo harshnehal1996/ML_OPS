@@ -3,6 +3,7 @@ import sys
 import hydra
 import torch
 import numpy as np
+import wandb
 import segmentation_models_pytorch as smp
 import segmentation_models_pytorch.utils as utils
 from ..features.build_features import get_train_data
@@ -15,6 +16,9 @@ def train(config) -> None:
     # set up the training parameters from the config files
     args = parse_inputs(config)
     
+    # initiate wandb logging
+    wandb.init(project='Image-Segmentation', entity='Training-Log')
+
     # initialize the model
     model = SegmentationModel(config.decoder.hyperparameters)
     dataset = get_train_data()
@@ -65,6 +69,17 @@ def train(config) -> None:
         
         if checkpoint_frequency > 0 and (i+1) % checkpoint_frequency == 0:
             save_checkpoint(model, i, max_score, optimizer)
+        
+        wandb.log(
+            {
+                "Train Accuracy:": train_logs['accuracy'],
+                "Train IOU Score:": train_logs['iou_score'],
+                "Validation Accuracy:": valid_logs['accuracy'],
+                "Validation Score:": valid_logs['iou_score'],
+            }
+        )
+        
+    
 
 if __name__ == '__main__':
     train()
