@@ -34,16 +34,35 @@ def parse_inputs(config):
         if metric == 'loss':
             return loss_fn[:-4].lower() + '_' + 'loss'
         raise_error('metric does not match available choices')
+    
+    def get_optimizer(dictionary):
+        if dictionary['name'] not in ['Adam', 'SGD', 'RMSProp']:
+            raise_error("optimizer must be Adam or SGD or RMSProp")
+        
+        if not dictionary['params'].__contains__('lr'):
+            raise_error("learining rate is required")
+        
+        lr = dictionary['params']['lr']
+        if lr <= 0:
+            raise_error('invalid learning rate %f' % lr)
+        
+        return dictionary
+    
+    def get_scheduler(dictionary):
+        if dictionary['name'] == 'OneCycleLR':
+            M = dictionary.copy()
+            nonlocal epochs
+            M['params']['epochs'] = epochs
+            return M
+        
+        return dictionary
 
-    # print(config)
+
     for k1 in config.keys():
         for k2 in config[k1].keys():
             for k3 in config[k1][k2].keys():
                 config = config[k1][k2][k3]
                 break
-    
-    print(config)
-    config = config.training.unet.b3
     
     use_cuda = config.hyperparameters.cuda
     
@@ -56,10 +75,6 @@ def parse_inputs(config):
     checkpoint_path = config.hyperparameters.checkpoint_path
     if checkpoint_path is not None and not os.path.isfile(checkpoint_path):
         raise Exception("file %s not found!" % checkpoint_path) 
-    
-    lr = config.hyperparameters.lr
-    if lr <= 0:
-        raise_error('invalid learning rate %f' % lr)
     
     epochs = config.hyperparameters.epochs
     if epochs < 0 or epochs != int(epochs):
@@ -92,16 +107,28 @@ def parse_inputs(config):
     
     if config.hyperparameters.seed is not None:
         torch.manual_seed(config.hyperparameters.seed)
+
+    if config.hyperparameters.optimizer is None: 
+        raise_error("illegal optimizer")
+    
+    optimizer = get_optimizer(config.hyperparameters.optimizer)
+    lr_scheduler = config.hyperparameters.lr_scheduler
+
+    if lr_scheduler is not None:
+        if not lr_scheduler.__contains__('name') or not lr_scheduler.__contains__('params'):
+            raise_error("illegal lr_scheduler data")
+        
+        lr_scheduler = get_scheduler(lr_scheduler)
     
     args = {'epochs' : epochs,\
             'batch_size' : batch_size,\
-            'lr': lr,\
             'DEVICE' : DEVICE,\
             'loss_function' : loss_function,\
             'metrics' : metrics,\
             'checkpoint_frequency' : checkpoint_frequency,\
             'best_metric' : best_metric,\
+            'optimizer' : optimizer,\
+            'lr_scheduler' : lr_scheduler,\
             'checkpoint_path' : checkpoint_path}
     
-    return  args
-    
+    return  config.hyperparameters, args
