@@ -1,4 +1,4 @@
 [core]
-    remote = storage
-['remote "storage"']
-    url = gdrive://16-sc5dTX2GH0cYKGe4GD6OC57Ye16-4i
+    remote = remote_storage
+['remote "remote_storage"']
+    url = gs://segmentation_project_data/
