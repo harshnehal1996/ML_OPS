@@ -9,9 +9,14 @@ from ..features.build_features import get_train_data
 from .model import SegmentationModel
 from .utils import parse_inputs, load_model, save_checkpoint
 
+import wandb
+
 # load hydra config
 @hydra.main(config_path='../conf', config_name='config')
 def train(config) -> None:
+    # Initiate logging
+    wandb.init(project='Image-Segmentation', entity='Training-Log')
+
     # set up the training parameters from the config files
     args = parse_inputs(config)
     
@@ -62,9 +67,12 @@ def train(config) -> None:
             max_score = valid_logs[best_metric]
             torch.save(model, './best_model.pth')
             print('Best Model saved!')
+            print(train_logs)
         
         if checkpoint_frequency > 0 and (i+1) % checkpoint_frequency == 0:
             save_checkpoint(model, i, max_score, optimizer)
+        
+        print(train_logs)
 
 if __name__ == '__main__':
     train()
