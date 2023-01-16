@@ -1,5 +1,5 @@
 hyperparameters:
-    decoder: "FPN"
+    decoder: "Unet"
     epochs: 1
     encoder: "mit_b1"
     cuda: true
@@ -7,8 +7,10 @@ hyperparameters:
     downsample_ratio: 4
     loss_function: "JaccardLoss"
     batch_size: 32
-    lr: 0.01
-    optimizer: Adam
+    optimizer: 
+        name: Adam
+        params:
+            lr: 0.01 
     lr_scheduler:
     seed:
     metrics: |

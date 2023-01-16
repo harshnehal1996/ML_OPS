@@ -1,5 +1,5 @@
 hyperparameters:
-    decoder: "FPN"
+    decoder: "Unet"
     epochs: 1
     encoder: "efficientnet-b3"
     cuda: true

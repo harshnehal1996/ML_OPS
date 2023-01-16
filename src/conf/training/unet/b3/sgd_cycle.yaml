@@ -1,5 +1,5 @@
 hyperparameters:
-    decoder: "FPN"
+    decoder: "Unet"
     epochs: 2
     encoder: "efficientnet-b3"
     encoder_depth: 5

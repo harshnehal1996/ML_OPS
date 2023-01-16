@@ -7,8 +7,10 @@ hyperparameters:
     downsample_ratio: 4
     loss_function: "JaccardLoss"
     batch_size: 32
-    lr: 0.01
-    optimizer: Adam
+    optimizer: 
+        name: Adam
+        params:
+            lr: 0.01 
     lr_scheduler:
     seed:
     metrics: |

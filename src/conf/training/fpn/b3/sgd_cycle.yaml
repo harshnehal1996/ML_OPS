@@ -1,15 +1,25 @@
 hyperparameters:
     decoder: "FPN"
-    epochs: 1
-    encoder: "efficientnet-b0"
+    epochs: 2
+    encoder: "efficientnet-b3"
     encoder_depth: 5
     cuda: true
     checkpoint_path:
     downsample_ratio: 4
     loss_function: "JaccardLoss"
     batch_size: 32
-    lr: 0.01
-    lr_scheduler: 
+    optimizer: 
+        name: SGD
+        params:
+            lr: 0.1
+            momentum: 0.9 
+    lr_scheduler:
+        name: OneCycleLR
+        params:
+            max_lr: 0.01
+            epochs:
+            steps_per_epoch: 
+            verbose: true
     seed:
     metrics: |
       IoU

@@ -1,2 +1,2 @@
 defaults:
-  - b3: adam 
+  - b3: sgd_exp 
