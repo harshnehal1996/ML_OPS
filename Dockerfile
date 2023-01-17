@@ -21,7 +21,7 @@ RUN apt update && \
 #     apt-get install python3.10
 
 # Upgrade pip
-RUN python3 -m pip install --upgrade pip
+RUN python -m pip install --upgrade pip
 
 COPY requirements.txt requirements.txt
 
