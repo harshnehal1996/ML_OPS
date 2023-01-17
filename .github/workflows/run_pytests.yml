@@ -1,0 +1,74 @@
+name: "Run tests"
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version : ["3.10"]
+        pytorch-version : ["1.13.0"]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    ## use it to add data testing
+    # - uses: iterative/setup-dvc@v1
+
+    # - name: Get data
+    #   run: dvc pull
+    #   env:
+    #     GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+
+    - name: Display Python version
+      run:  python -c "import sys; print(sys.version)"
+
+    - name: Get pip cache dir
+      id: pip-cache
+      run: |
+        echo "::set-output name=dir::$(pip cache dir)"
+
+    - name: Cache dependencies
+      id : cache-pip
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.pip-cache.outputs.dir }}
+        key: ${{ matrix.os }}-py${{ matrix.python-version }}-pt${{ matrix.pytorch-version }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements_tests.txt') }}
+        restore-keys: |
+          ${{ matrix.os }}-py${{ matrix.python-version }}-pt${{ matrix.pytorch-version }}-pip-
+
+    - name: Display Output
+      env:
+        HAS_CACHED: ${{ steps.cache-pip.outputs.cache-hit }}
+      run: |
+        echo "$HAS_CACHED"
+        echo ${{ hashFiles('**/requirements.txt') }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements_test.txt
+      
+    - name: Test with pytest
+      run: |
+        pip install pytest
+        pytest -v

@@ -11,6 +11,10 @@ from torch.utils.data import Dataset
 from PIL import Image
 import matplotlib.pyplot as plt
 
+# @click.command()
+# @click.argument('input_filepath', type=click.Path(exists=True))
+# @click.argument('output_filepath', type=click.Path())
+
 class ImageDataset(Dataset):
     def __init__(self, input_dir, output_dir):
         self.input_images = []
@@ -19,11 +23,14 @@ class ImageDataset(Dataset):
             for file in os.listdir(os.path.join(input_dir, folder)):
                 if file.endswith(".png"):
                     self.input_images.append(os.path.join(input_dir, folder, file))
-
+                    
         for folder in os.listdir(output_dir):
             for file in os.listdir(os.path.join(output_dir, folder)):
                 if file.endswith("color.png"):
                     self.output_images.append(os.path.join(output_dir, folder, file))
+
+
+        # self.output_images = [output_dir+f for f in os.listdir(output_dir) if f.endswith('color.png')]
 
         self.transform1 = transforms.ToTensor()
         self.transform2 = transforms.Resize(255)
@@ -54,7 +61,7 @@ def main():
     input_path_train = data_path + "/images/train"
     output_path_train = data_path + "/gtFine/train"
     train_cities = next(os.walk(input_path_train))[1]
- 
+
     transform = transforms.Compose([transforms.ToTensor])
     train_dataset = ImageDataset(
         input_dir=input_path_train, output_dir=output_path_train
@@ -67,8 +74,57 @@ def main():
     torch.save(test_dataset, processed_path + "/test_set.pt")
 
 
-if __name__ == '__main__':
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    # # Code to check whether the dataset was made properly
+
+    # count = 0
+    # for in_img, out_img in train_data_loader:
+    #     # print(in_img.shape)
+
+    #     # Create a figure with a grid of subplots
+    #     fig, axes = plt.subplots(4, 8)
+
+    #     # Iterate over the array of tensor images
+    #     for i, tensor_image in enumerate(in_img):
+    #         # Convert the tensor image to a numpy array
+    #         tensor_image = tensor_image.permute(1, 2, 0)
+    #         image = tensor_image.numpy()
+    #         # Get the row and column indices for the subplot
+    #         row = i // 8
+    #         col = i % 8
+    #         # Add the image to the subplot
+    #         axes[row, col].imshow(image)
+    #         # Remove the axis labels
+    #         axes[row, col].axis('off')
+    #     count+=1
+    #     # Show the plot
+    #     plt.show()
+
+    #     # Create a figure with a grid of subplots
+    #     fig1, axes1 = plt.subplots(4, 8)
+
+    #     # Iterate over the array of tensor images
+    #     for i, tensor_image in enumerate(out_img):
+    #         # Convert the tensor image to a numpy array
+    #         tensor_image = tensor_image.permute(1, 2, 0)
+    #         image = tensor_image.numpy()
+    #         # Get the row and column indices for the subplot
+    #         row = i // 8
+    #         col = i % 8
+    #         # Add the image to the subplot
+    #         axes1[row, col].imshow(image)
+    #         # Remove the axis labels
+    #         axes1[row, col].axis('off')
+    #     # count+=1
+
+    #     # Show the plot
+    #     plt.show()
+
+        # if count > 0:
+        #     break
+
+
+if __name__ == "__main__":
+    log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
     # not used in this stub but often useful for finding various files
