@@ -18,7 +18,6 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Download and install Anaconda
-USER anaconda
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2021.07-Linux-x86_64.sh
 RUN bash Anaconda3-2021.07-Linux-x86_64.sh -b
 RUN rm Anaconda3-2021.07-Linux-x86_64.sh
