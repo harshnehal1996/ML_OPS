@@ -16,9 +16,9 @@ RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
-# Install Python 3.10.4
-RUN apt-get update && \
-    apt-get install python3.10
+# # Install Python 3.10.4
+# RUN apt-get update && \
+#     apt-get install python3.10
 
 # Upgrade pip
 RUN python3 -m pip install --upgrade pip
