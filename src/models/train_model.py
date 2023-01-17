@@ -16,7 +16,7 @@ def train(config) -> None:
     log = logging.getLogger(__name__)
     
     # initiate wandb logging
-    wandb.init(project='Image-Segmentation', entity='Training-Log')
+    wandb.init(project='project')
 
     # initialize the model
     model = SegmentationModel(config)
