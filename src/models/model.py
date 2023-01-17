@@ -20,6 +20,8 @@ class SegmentationModel(torch.nn.Module):
             param.requires_grad = False
     
     def forward(self, inputs):
+        if inputs.ndim != 4:
+            raise ValueError("Expected 4D Tensor, but got %dD instead" % inputs.ndim)
         return self.model(inputs)
     
     def load_decoder_weights(self, weights):
