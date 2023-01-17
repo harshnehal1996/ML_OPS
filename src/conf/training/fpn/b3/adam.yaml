@@ -1,0 +1,22 @@
+hyperparameters:
+    decoder: "FPN"
+    epochs: 1
+    encoder: "efficientnet-b3"
+    cuda: true
+    checkpoint_path:
+    downsample_ratio: 4
+    loss_function: "JaccardLoss"
+    batch_size: 32
+    optimizer: 
+        name: Adam
+        params:
+            lr: 0.01 
+    lr_scheduler:
+    seed:
+    metrics: |
+      IoU
+      Accuracy
+    classes: 11
+    checkpoint_frequency: 5
+    activation: "softmax2d"
+    best_metric: "IoU"

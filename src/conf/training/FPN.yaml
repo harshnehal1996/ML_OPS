@@ -1,0 +1,2 @@
+defaults:
+    - fpn: efficientnet-b3
