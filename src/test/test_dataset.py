@@ -25,16 +25,14 @@ from make_dataset import ImageDataset
 from hydra import initialize, compose
 
 
-
-
 def test_dataset():
     with initialize(version_base=None, config_path='../conf/data/'):
         config = compose(config_name="dataset")
         import __main__
         setattr(__main__, "ImageDataset", ImageDataset)
 
-        test_data = torch.load(r"E:\DTU\MLOPs\ML_OPS\data\processed\test_set.pt")
-        train_data = torch.load(r"E:\DTU\MLOPs\ML_OPS\data\processed\train_set.pt")
+        test_data = torch.load(config.test_path)
+        train_data = torch.load(config.train_path)
 
         # test_loader = DataLoader(dataset=test_data, batch_size=100, shuffle=True)
         # train_loader = DataLoader(dataset=train_data, batch_size=100, shuffle=True)
