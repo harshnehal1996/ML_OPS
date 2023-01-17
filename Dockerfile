@@ -9,7 +9,7 @@
 # WORKDIR /
 # RUN pip install -r requirements.txt --no-cache-dir
 
-#Use the nvidia/cuda image as the base image
+#Use the nvidia/cuda image as the base images
 FROM nvidia/cuda:12.0.0-devel-ubuntu20.04
 
 RUN apt update && \
