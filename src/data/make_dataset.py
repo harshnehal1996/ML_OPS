@@ -56,8 +56,8 @@ def main():
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
     dir_path = dirname(dirname(dirname(abspath(__file__))))
-    data_path = dir_path + "/data/raw"
-    processed_path = dir_path + "/data/processed"
+    data_path = dir_path + "/data/Cityspaces"
+    processed_path = dir_path + "/data_git/processed"
     input_path_train = data_path + "/images/train"
     output_path_train = data_path + "/gtFine/train"
     train_cities = next(os.walk(input_path_train))[1]
