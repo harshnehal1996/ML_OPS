@@ -11,11 +11,9 @@ from torch.utils.data import Dataset
 from PIL import Image
 import matplotlib.pyplot as plt
 
-
 # @click.command()
 # @click.argument('input_filepath', type=click.Path(exists=True))
 # @click.argument('output_filepath', type=click.Path())
-
 
 class ImageDataset(Dataset):
     def __init__(self, input_dir, output_dir):
@@ -25,13 +23,15 @@ class ImageDataset(Dataset):
             for file in os.listdir(os.path.join(input_dir, folder)):
                 if file.endswith(".png"):
                     self.input_images.append(os.path.join(input_dir, folder, file))
-
+                    
         for folder in os.listdir(output_dir):
             for file in os.listdir(os.path.join(output_dir, folder)):
                 if file.endswith("color.png"):
                     self.output_images.append(os.path.join(output_dir, folder, file))
 
+
         # self.output_images = [output_dir+f for f in os.listdir(output_dir) if f.endswith('color.png')]
+
         self.transform1 = transforms.ToTensor()
         self.transform2 = transforms.Resize(255)
 
@@ -49,48 +49,30 @@ class ImageDataset(Dataset):
             output_image = self.transform2(output_image)
         return input_image, output_image
 
-
-# def main(input_filepath, output_filepath):
 def main():
-    """Runs data processing scripts to turn raw data from (../raw) into
-    cleaned data ready to be analyzed (saved in ../processed).
+    """ Runs data processing scripts to turn raw data from (../raw) into
+        cleaned data ready to be analyzed (saved in ../processed).
     """
     logger = logging.getLogger(__name__)
-    logger.info("making final data set from raw data")
-    mypath = r"E:\DTU\MLOPs\ML_OPS\data\Cityspaces\images\train"  # todo: change the path for wsl
-    input_path_train = r"E:\DTU\MLOPs\ML_OPS\data\Cityspaces\images\train"
-    output_path_train = r"E:\DTU\MLOPs\ML_OPS\data\Cityspaces\gtFine\train"
-    train_cities = next(os.walk(mypath))[1]
-    # print(test_cities)
+    logger.info('making final data set from raw data')
+    dir_path = dirname(dirname(dirname(abspath(__file__))))
+    data_path = dir_path + "/data/raw"
+    processed_path = dir_path + "/data/processed"
+    input_path_train = data_path + "/images/train"
+    output_path_train = data_path + "/gtFine/train"
+    train_cities = next(os.walk(input_path_train))[1]
 
-    # train_image_folders = [ os.path.join(mypath,x) for x in train_cities ]
-    # print(train_image_folders)
-
-    # transform = transforms.Compose([transforms.ToTensor, transforms.Resize(255)])
-
-    # train_images_dataset = datasets.ImageFolder(mypath, transform = transform)
-
-    # dataloader = torch.utils.data.DataLoader(train_images_dataset, batch_size=32, shuffle=True)
-    # print(dataloader)
-    # print(os.listdir(input_path))
     transform = transforms.Compose([transforms.ToTensor])
     train_dataset = ImageDataset(
         input_dir=input_path_train, output_dir=output_path_train
     )
-    train_data_loader = torch.utils.data.DataLoader(
-        train_dataset, batch_size=32, shuffle=True, num_workers=4
-    )
-    processed_path = r"E:\DTU\MLOPs\ML_OPS\data\processed"
-    torch.save(train_dataset, processed_path + r"/train_set.pt")
+    torch.save(train_dataset, processed_path + "/train_set.pt")
 
-    input_path_test = r"E:\DTU\MLOPs\ML_OPS\data\Cityspaces\images\val"
-    output_path_test = r"E:\DTU\MLOPs\ML_OPS\data\Cityspaces\gtFine\val"
+    input_path_test = data_path + "/images/val"
+    output_path_test = data_path + "/gtFine/val"
     test_dataset = ImageDataset(input_dir=input_path_test, output_dir=output_path_test)
-    test_data_loader = torch.utils.data.DataLoader(
-        test_dataset, batch_size=32, shuffle=True, num_workers=4
-    )
-    processed_path = r"E:\DTU\MLOPs\ML_OPS\data\processed"
-    torch.save(test_dataset, processed_path + r"/test_set.pt")
+    torch.save(test_dataset, processed_path + "/test_set.pt")
+
 
     # # Code to check whether the dataset was made properly
 
@@ -136,7 +118,6 @@ def main():
 
     #     # Show the plot
     #     plt.show()
-
 
         # if count > 0:
         #     break
