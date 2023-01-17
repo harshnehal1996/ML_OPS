@@ -10,7 +10,7 @@
 # RUN pip install -r requirements.txt --no-cache-dir
 
 # Use the nvidia/cuda image as the base image
-FROM FROM nvidia/cuda:11.0-cudnn8-runtime-ubuntu18.04
+FROM nvidia/cuda:11.0-cudnn8-runtime-ubuntu18.04
 
 # Update Ubuntu and install additional packages
 RUN apt-get update && \
