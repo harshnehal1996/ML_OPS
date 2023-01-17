@@ -3,7 +3,7 @@ steps:
   args: ['build', '-t', 'gcr.io/snappy-byte-374310/segmentation_project_test:latest', '.']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/snappy-byte-374310/segmentation_project_test:latest']
-- name: ‘gcr.io/cloud-builders/gcloud’
+#- name: ‘gcr.io/cloud-builders/gcloud’
   # args: [‘ai’, ‘custom-jobs’, ‘create’,
   #     ‘--display-name=vertex-with-docker’,
   #     ‘--region=europe-west1’,
