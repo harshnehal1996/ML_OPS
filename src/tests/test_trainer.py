@@ -13,7 +13,7 @@ import torch
 def test_model():
     with initialize(version_base=None, config_path='../conf'):
         config = compose(config_name="config")
-        print(config)
+        
         for k1 in config.keys():
             for k2 in config[k1].keys():
                 for k3 in config[k1][k2].keys():
