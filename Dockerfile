@@ -18,12 +18,12 @@ RUN apt update && \
 
 # Install Python 3.10.4
 RUN apt-get update && \
-    apt-get install python3.10
+    apt-get install -y python3.10
 
 # Upgrade pip
-RUN python3.10 -m pip install --upgrade pip
+RUN python -m pip install --upgrade pip
 
 COPY requirements.txt requirements.txt
 
 WORKDIR /
-RUN pip3.10 install -r requirements.txt --no-cache-dir
+RUN pip install -r requirements.txt --no-cache-dir
