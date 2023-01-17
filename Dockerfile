@@ -45,23 +45,41 @@
 # RUN conda activate env
 # RUN echo "Making sure torch is installed correctly..."
 # RUN python -c "import torch"
-# Use the nvidia/cuda image as the base image
+# # Use the nvidia/cuda image as the base image
+# FROM nvidia/cuda:12.0.0-devel-ubuntu20.04
+
+# # Update Ubuntu and install additional packages
+# RUN apt-get update && \
+#     apt-get install --no-install-recommends -y build-essential gcc wget && \
+#     apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# # Download and install Anaconda
+# RUN wget https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
+# RUN bash Anaconda3-2022.10-Linux-x86_64.sh -b
+# RUN rm Anaconda3-2022.10-Linux-x86_64.sh
+# ENV PATH="/root/anaconda3/bin:$PATH"
+
+# # Copy conda_env.yml file and create the environment
+
+
+# # Set the working directory for future commands
+# WORKDIR /root/anaconda3
+# install python
+#Use the nvidia/cuda image as the base image
 FROM nvidia/cuda:12.0.0-devel-ubuntu20.04
 
-# Update Ubuntu and install additional packages
+RUN apt update && \
+    apt install --no-install-recommends -y build-essential gcc && \
+    apt clean && rm -rf /var/lib/apt/lists/*
+
+# Install Python 3.10.4
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y build-essential gcc wget && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get install -y python3.10 python3.10-dev python3-pip
 
-# Download and install Anaconda
-RUN wget https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
-RUN bash Anaconda3-2022.10-Linux-x86_64.sh -b
-RUN rm Anaconda3-2022.10-Linux-x86_64.sh
-ENV PATH="/root/anaconda3/bin:$PATH"
+# Upgrade pip
+RUN python3.10 -m pip install --upgrade pip
 
-# Copy conda_env.yml file and create the environment
-COPY conda_env.yml .
-RUN conda env create -f conda_env.yml
+COPY requirements.txt requirements.txt
 
-# Set the working directory for future commands
-WORKDIR /root/anaconda3
+WORKDIR /
+RUN pip install -r requirements.txt --no-cache-dir
