@@ -61,7 +61,7 @@ ENV PATH="/root/anaconda3/bin:$PATH"
 
 # Copy conda_env.yml file and create the environment
 COPY conda_env.yml .
-RUN conda env create -f conda_env.yaml
+RUN conda env create -f conda_env.yml
 
 # Set the working directory for future commands
 WORKDIR /root/anaconda3
