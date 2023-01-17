@@ -10,18 +10,12 @@
 # RUN pip install -r requirements.txt --no-cache-dir
 
 #Use the nvidia/cuda image as the base images
-FROM nvidia/cuda:12.0.0-devel-ubuntu20.04
+FROM python:3.10-slim-buster
 
+# install python
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
-
-# Install Python 3.10.4
-RUN apt-get update && \
-    apt-get install -y python3.10
-
-# Upgrade pip
-RUN python -m pip install --upgrade pip
 
 COPY requirements.txt requirements.txt
 
