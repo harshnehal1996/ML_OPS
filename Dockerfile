@@ -16,14 +16,14 @@ RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
-# # Install Python 3.10.4
-# RUN apt-get update && \
-#     apt-get install python3.10
+# Install Python 3.10.4
+RUN apt-get update && \
+    apt-get install python3.10
 
 # Upgrade pip
-RUN python -m pip install --upgrade pip
+RUN python3.10 -m pip install --upgrade pip
 
 COPY requirements.txt requirements.txt
 
 WORKDIR /
-RUN pip install -r requirements.txt --no-cache-dir
+RUN pip3.10 install -r requirements.txt --no-cache-dir
