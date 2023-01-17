@@ -20,8 +20,8 @@ RUN apt-get update && \
 # Download and install Anaconda
 RUN apt-get update && apt-get install -y wget
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
-RUN bash Anaconda3-2021.07-Linux-x86_64.sh -b
-RUN rm Anaconda3-2021.07-Linux-x86_64.sh
+RUN bash Anaconda3-2022.10-Linux-x86_64.sh -b
+RUN rm Anaconda3-2022.10-Linux-x86_64.sh
 ENV PATH="/home/anaconda/anaconda3/bin:$PATH"
 
 # Copy environment.yml file and create the environment
