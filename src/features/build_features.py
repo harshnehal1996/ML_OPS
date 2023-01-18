@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import matplotlib.pyplot as plt
 import numpy as np
 import click
@@ -25,7 +24,7 @@ class ImageDataset(Dataset):
                     
         for folder in os.listdir(output_dir):
             for file in os.listdir(os.path.join(output_dir, folder)):
-                if file.endswith("color.png"):
+                if file.endswith("labelIds.png"):
                     self.output_images.append(os.path.join(output_dir, folder, file))
 
 
@@ -49,28 +48,20 @@ class ImageDataset(Dataset):
             output_image = self.transform2(output_image)
         return input_image, output_image
 
+
 class Dataset(Dataset):
     """Read images, apply augmentation and preprocessing transformations.
-=======
-# import torch
-# from torch.utils.data import DataLoader
-# from torch.utils.data import Dataset
-
-# class Dataset(Dataset):
-#     """CamVid Dataset. Read images, apply augmentation and preprocessing transformations.
->>>>>>> c826de40b17252b9b14b02ffed343ced4699b78b
     
-#     Args:
-#         dataset(Dataset
-#         class_values (list): values of classes to extract from segmentation mask
-#         augmentation (albumentations.Compose): data transfromation pipeline 
-#             (e.g. flip, scale, etc.)
-#         preprocessing (albumentations.Compose): data preprocessing 
-#             (e.g. noralization, shape manipulation, etc.)
+     Args:
+         dataset(Dataset
+         class_values (list): values of classes to extract from segmentation mask
+         augmentation (albumentations.Compose): data transfromation pipeline 
+             (e.g. flip, scale, etc.)
+         preprocessing (albumentations.Compose): data preprocessing 
+             (e.g. noralization, shape manipulation, etc.)
     
-#     """
+     """
     
-<<<<<<< HEAD
     def __init__(
             self, 
             dataset, 
@@ -93,14 +84,13 @@ class Dataset(Dataset):
                    'pavement' : 6
                   }
 
->>>>>>> c826de40b17252b9b14b02ffed343ced4699b78b
         
-#         self.augmentation = augmentation
-#         self.preprocessing = preprocessing
+        self.augmentation = augmentation
+        self.preprocessing = preprocessing
     
-#     def __getitem__(self, i):
+    def __getitem__(self, i):
         
-<<<<<<< HEAD
+
         # load image and assign mask in 1 of K format
         
         image = cv2.imread(self.dataset.input_images[i])
@@ -114,20 +104,7 @@ class Dataset(Dataset):
 
         mask = np.stack(masks, axis=-1)
         
-        
-        # extract certain classes from mask (e.g. cars)
-#         masks = [(mask == v) for v in self.object_to_pixel]
-#         mask = np.stack(masks, axis=-1).astype('float')
-        
-        # apply augmentations
->>>>>>> c826de40b17252b9b14b02ffed343ced4699b78b
-#         if self.augmentation:
-#             sample = self.augmentation(image=image, mask=mask)
-#             image, mask = sample['image'], sample['mask']
-        
-<<<<<<< HEAD
-        # apply preprocessing
-        
+        # apply preprocessing        
         if self.preprocessing is not None:
             sample = self.preprocessing(image=image, mask=mask)
             image, mask = sample['image'], sample['mask']
@@ -147,8 +124,6 @@ class Dataset(Dataset):
 def to_tensor(x, **kwargs):
     return x.transpose(2, 0, 1).astype('float32')
 
->>>>>>> c826de40b17252b9b14b02ffed343ced4699b78b
-
 
 def get_preprocessing(preprocessing_fn):
     """Construct preprocessing transform
@@ -166,39 +141,23 @@ def get_preprocessing(preprocessing_fn):
     ]
     return albu.Compose(_transform)
 
-def main():
+def get_train_data(ENCODER='', ENCODER_WEIGHTS='', PROJECT_PATH=''):
     """ Preprocessing script that changes created datasets into more
         suited for training purposes
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
-    dir_path = dirname(dirname(dirname(abspath(__file__))))
-    data_path = dir_path + "/data/processed"
-    viz_path = dir_path + "/visualization"
+    dir_path = PROJECT_PATH
+    data_path = os.path.join(dir_path, "data/processed")
 
-    ENCODER = 'efficientnet-b3'
-    ENCODER_WEIGHTS = 'imagenet'
     preprocessing_fn = smp.encoders.get_preprocessing_fn(ENCODER, ENCODER_WEIGHTS)
 
-    input_path_train = data_path + "/train_set.pt"
+    input_path_train = os.path.join(data_path, "train_set.pt")
 
     train_dataset = Dataset(input_path_train, preprocessing=get_preprocessing(preprocessing_fn))
-    torch.save(train_dataset, data_path + "/train_set_f.pt")
+    torch.save(train_dataset, input_path_train)
 
-    input_path_test = data_path + "/test_set.pt"
+    input_path_test = os.path.join(data_path, "test_set.pt")
 
     test_dataset = Dataset(input_path_test, preprocessing=get_preprocessing(preprocessing_fn))
-    torch.save(test_dataset, data_path + "/test_set_f.pt")
-
-if __name__ == "__main__":
-    log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
-
-    # not used in this stub but often useful for finding various files
-    project_dir = Path(__file__).resolve().parents[2]
-
-    # find .env automagically by walking up directories until it's found, then
-    # load up the .env entries as environment variables
-    load_dotenv(find_dotenv())
-
-    main()
+    torch.save(test_dataset, input_path_test)
