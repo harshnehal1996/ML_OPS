@@ -24,7 +24,6 @@
 
 
 FROM nvidia/cuda:12.0.0-base-ubuntu20.04
-CMD nvidia-smi
 
 # install python
 RUN apt update && \
@@ -37,7 +36,12 @@ RUN apt-get install unzip
 RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
 RUN pip install wandb
-
-COPY requirements.txt requirements.txt
-WORKDIR /
 RUN pip3 install -r requirements.txt --no-cache-dir
+
+ENV WANDB_API_KEY 54866221cbbe89ba3db8a4c4abe597c488b1153f
+
+COPY  . /app
+WORKDIR /app
+
+RUN chmod -R +x /app
+CMD ["./script.sh"]
