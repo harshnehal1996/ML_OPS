@@ -1,3 +1,3 @@
 #!/bin/bash
-./app/src/data/make_dataset.py
-./app/src/models/train_model.py
+python app/src/data/make_dataset.py
+python app/src/models/train_model.py
