@@ -35,9 +35,19 @@ RUN apt-get update && apt-get install --no-install-recommends --no-install-sugge
 RUN apt-get install unzip
 RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
+RUN pip3 install --upgrade pip
 RUN pip install wandb
+RUN ldconfig
 
-
+COPY data.dvc data.dvc
+COPY snappy-byte-374310-05973c186a11.json snappy-byte-374310-05973c186a11.json
+RUN pip install dvc 'dvc[gs]'
+RUN dvc init --no-scm
+RUN dvc remote add -d remote_storage gs://segmentation_project_data/
+RUN curl -sSL https://sdk.cloud.google.com | bash
+#ENV PATH $PATH:/root/google-cloud-sdk/bin
+#RUN gcloud auth activate-service-account credentials@snappy-byte-374310.iam.gserviceaccount.com  --key-file=/snappy-byte-374310-05973c186a11.json
+# RUN dvc pull
 ENV WANDB_API_KEY 54866221cbbe89ba3db8a4c4abe597c488b1153f
 
 COPY . /app
