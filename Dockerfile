@@ -36,11 +36,14 @@ RUN apt-get install unzip
 RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
 RUN pip install wandb
-
+RUN pip install dvc 'dvc[gs]'
 
 ENV WANDB_API_KEY 54866221cbbe89ba3db8a4c4abe597c488b1153f
 
-COPY . .
-WORKDIR /
+COPY . /app
+WORKDIR /app
+RUN dvc init --no-scm
+RUN dvc remote add -d myremote gs://segmentation_project_data/
+RUN dvc pull
 RUN pip install -r requirements.txt --no-cache-dir
 CMD ["./script.sh"]
