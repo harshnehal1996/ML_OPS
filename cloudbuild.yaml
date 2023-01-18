@@ -7,5 +7,5 @@ steps:
   args: ['ai', 'custom-jobs', 'create',
       '--display-name=vertex-with-docker',
       '--region=europe-west1',
-      '--config=config_vertex_gpu.yaml',
+      '--config=config_vertex_cpu.yaml',
       '--project=snappy-byte-374310']
