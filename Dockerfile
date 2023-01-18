@@ -32,16 +32,20 @@ RUN apt update && \
 
 #set upp environments
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y curl
+RUN apt-get update && \
+    apt-get install -y wget
+
+RUN wget https://github.com/libgit2/libgit2/archive/refs/tags/v1.5.0.tar.gz -O libgit2-1.5.0.tar.gz \
+    && tar xzf libgit2-1.5.0.tar.gz \
+    && cd libgit2-1.5.0/ \
+    && cmake . \
+    && make \
+    && sudo make install
 RUN apt-get install unzip
 RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
 RUN pip install wandb
-RUN wget https://github.com/libgit2/libgit2/archive/refs/tags/v1.5.0.tar.gz -O libgit2-1.5.0.tar.gz
-RUN tar xzf libgit2-1.5.0.tar.gz
-RUN cd libgit2-1.5.0/
-RUN cmake .
-RUN make
-RUN make install
+
 RUN pip install pygit2
 RUN pip install dvc 'dvc[gs]'
 
