@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import os
-from os.path import isfile, join
+from os.path import isfile, join, dirname, abspath
 from torchvision import datasets, transforms
 import torch
 from torch.utils.data import Dataset
@@ -31,9 +31,10 @@ class ImageDataset(Dataset):
 
 
         # self.output_images = [output_dir+f for f in os.listdir(output_dir) if f.endswith('color.png')]
-
+        self.input_images.sort()
+        self.output_images.sort()
         self.transform1 = transforms.ToTensor()
-        self.transform2 = transforms.Resize(255)
+        self.transform2 = None
 
     def __len__(self):
         return len(self.input_images)
