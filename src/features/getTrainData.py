@@ -141,23 +141,26 @@ def get_preprocessing(preprocessing_fn):
     ]
     return albu.Compose(_transform)
 
-def get_train_data(ENCODER='', ENCODER_WEIGHTS='', PROJECT_PATH=''):
+def getTrainData(config):
     """ Preprocessing script that changes created datasets into more
         suited for training purposes
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
-    dir_path = PROJECT_PATH
-    data_path = os.path.join(dir_path, "data/processed")
+    dir_path = config.PROJECT_PATH
+    data_path = dir_path + "/data/processed"
+    viz_path = dir_path + "/visualization"
 
+    ENCODER = config.ENCODER
+    ENCODER_WEIGHTS = config.ENCODER_WEIGHTS
     preprocessing_fn = smp.encoders.get_preprocessing_fn(ENCODER, ENCODER_WEIGHTS)
 
-    input_path_train = os.path.join(data_path, "train_set.pt")
+    input_path_train = data_path + "/train_set.pt"
 
     train_dataset = Dataset(input_path_train, preprocessing=get_preprocessing(preprocessing_fn))
-    torch.save(train_dataset, input_path_train)
+    torch.save(train_dataset, data_path + "/train_set.pt")
 
-    input_path_test = os.path.join(data_path, "test_set.pt")
+    input_path_test = data_path + "/test_set.pt"
 
     test_dataset = Dataset(input_path_test, preprocessing=get_preprocessing(preprocessing_fn))
-    torch.save(test_dataset, input_path_test)
+    torch.save(test_dataset, data_path + "/test_set.pt")
