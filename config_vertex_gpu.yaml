@@ -1,8 +1,0 @@
-workerPoolSpecs:
-   machineSpec:
-      machineType: n1-standard-8
-      acceleratorType: nvidia-tesla-v100
-      acceleratorCount: 1
-   replicaCount: 1
-   containerSpec:
-      imageUri: gcr.io/snappy-byte-374310/segmentation_project_test:latest
