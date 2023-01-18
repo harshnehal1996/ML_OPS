@@ -1,5 +1,6 @@
 import os
 import torch
+from pathlib import Path
 
 def load_model(model, optimizer, checkpoint_path):
     checkpoint = torch.load(checkpoint_path)
@@ -119,6 +120,10 @@ def parse_inputs(config):
             raise_error("illegal lr_scheduler data")
         
         lr_scheduler = get_scheduler(lr_scheduler)
+
+    metadata = {'ENCODER' : config.hyperparameters.encoder,\
+                'ENCODER_WEIGHTS' : 'imagenet',\
+                'PROJECT_PATH' : str(Path(__file__).resolve().parents[2])}
     
     args = {'epochs' : epochs,\
             'batch_size' : batch_size,\
@@ -129,6 +134,7 @@ def parse_inputs(config):
             'best_metric' : best_metric,\
             'optimizer' : optimizer,\
             'lr_scheduler' : lr_scheduler,\
-            'checkpoint_path' : checkpoint_path}
+            'checkpoint_path' : checkpoint_path,\
+            'metadata' : metadata}
     
     return  config.hyperparameters, args

@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import os
-from os.path import isfile, join
+from os.path import isfile, join, dirname, abspath
 from torchvision import datasets, transforms
 import torch
 from torch.utils.data import Dataset
@@ -26,14 +26,15 @@ class ImageDataset(Dataset):
                     
         for folder in os.listdir(output_dir):
             for file in os.listdir(os.path.join(output_dir, folder)):
-                if file.endswith("color.png"):
+                if file.endswith("labelIds.png"):
                     self.output_images.append(os.path.join(output_dir, folder, file))
 
 
         # self.output_images = [output_dir+f for f in os.listdir(output_dir) if f.endswith('color.png')]
-
+        self.input_images.sort()
+        self.output_images.sort()
         self.transform1 = transforms.ToTensor()
-        self.transform2 = transforms.Resize(255)
+        self.transform2 = None
 
     def __len__(self):
         return len(self.input_images)
