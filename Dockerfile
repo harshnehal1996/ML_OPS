@@ -36,12 +36,12 @@ RUN apt-get install unzip
 RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
 RUN pip install wandb
-RUN pip3 install -r requirements.txt --no-cache-dir
+
 
 ENV WANDB_API_KEY 54866221cbbe89ba3db8a4c4abe597c488b1153f
 
 COPY  . /app
 WORKDIR /app
-
+RUN pip install -r requirements.txt --no-cache-dir
 RUN chmod -R +x /app
 CMD ["./script.sh"]
