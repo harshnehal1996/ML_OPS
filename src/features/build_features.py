@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import matplotlib.pyplot as plt
 import numpy as np
 import click
@@ -50,17 +51,26 @@ class ImageDataset(Dataset):
 
 class Dataset(Dataset):
     """Read images, apply augmentation and preprocessing transformations.
+=======
+# import torch
+# from torch.utils.data import DataLoader
+# from torch.utils.data import Dataset
+
+# class Dataset(Dataset):
+#     """CamVid Dataset. Read images, apply augmentation and preprocessing transformations.
+>>>>>>> c826de40b17252b9b14b02ffed343ced4699b78b
     
-    Args:
-        dataset(Dataset
-        class_values (list): values of classes to extract from segmentation mask
-        augmentation (albumentations.Compose): data transfromation pipeline 
-            (e.g. flip, scale, etc.)
-        preprocessing (albumentations.Compose): data preprocessing 
-            (e.g. noralization, shape manipulation, etc.)
+#     Args:
+#         dataset(Dataset
+#         class_values (list): values of classes to extract from segmentation mask
+#         augmentation (albumentations.Compose): data transfromation pipeline 
+#             (e.g. flip, scale, etc.)
+#         preprocessing (albumentations.Compose): data preprocessing 
+#             (e.g. noralization, shape manipulation, etc.)
     
-    """
+#     """
     
+<<<<<<< HEAD
     def __init__(
             self, 
             dataset, 
@@ -82,12 +92,15 @@ class Dataset(Dataset):
                    'unlabelled' : 3,\
                    'pavement' : 6
                   }
+
+>>>>>>> c826de40b17252b9b14b02ffed343ced4699b78b
         
-        self.augmentation = augmentation
-        self.preprocessing = preprocessing
+#         self.augmentation = augmentation
+#         self.preprocessing = preprocessing
     
-    def __getitem__(self, i):
+#     def __getitem__(self, i):
         
+<<<<<<< HEAD
         # load image and assign mask in 1 of K format
         
         image = cv2.imread(self.dataset.input_images[i])
@@ -107,10 +120,12 @@ class Dataset(Dataset):
 #         mask = np.stack(masks, axis=-1).astype('float')
         
         # apply augmentations
+>>>>>>> c826de40b17252b9b14b02ffed343ced4699b78b
 #         if self.augmentation:
 #             sample = self.augmentation(image=image, mask=mask)
 #             image, mask = sample['image'], sample['mask']
         
+<<<<<<< HEAD
         # apply preprocessing
         
         if self.preprocessing is not None:
@@ -131,6 +146,8 @@ class Dataset(Dataset):
         
 def to_tensor(x, **kwargs):
     return x.transpose(2, 0, 1).astype('float32')
+
+>>>>>>> c826de40b17252b9b14b02ffed343ced4699b78b
 
 
 def get_preprocessing(preprocessing_fn):

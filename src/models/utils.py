@@ -70,7 +70,7 @@ def parse_inputs(config):
     
     batch_size = config.hyperparameters.batch_size
     if batch_size != int(batch_size) or batch_size <= 0:
-        raise_error('invalid batch size %d' % batch_size) 
+        raise_error('invalid batch size') 
 
     checkpoint_path = config.hyperparameters.checkpoint_path
     if checkpoint_path is not None and not os.path.isfile(checkpoint_path):

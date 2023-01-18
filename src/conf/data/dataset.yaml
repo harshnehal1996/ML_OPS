@@ -1,0 +1,4 @@
+datset:
+      - test_path: "/data_git/processed/test_set.pt"
+      - train_path: "/data_git/processed/train_set.pt"
+
