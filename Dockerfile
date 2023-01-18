@@ -34,9 +34,9 @@ RUN apt update && \
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y curl
 RUN apt-get update && \
     apt-get install -y wget
+ENV TZ=UTC
 RUN apt-get update && \
     apt-get install -y cmake
-ENV TZ=UTC
 RUN wget https://github.com/libgit2/libgit2/archive/refs/tags/v1.5.0.tar.gz -O libgit2-1.5.0.tar.gz \
     && tar xzf libgit2-1.5.0.tar.gz \
     && cd libgit2-1.5.0/ \
