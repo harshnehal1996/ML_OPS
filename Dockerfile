@@ -43,5 +43,4 @@ ENV WANDB_API_KEY 54866221cbbe89ba3db8a4c4abe597c488b1153f
 COPY . .
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
-RUN chmod -R +x /app
 CMD ["./script.sh"]
