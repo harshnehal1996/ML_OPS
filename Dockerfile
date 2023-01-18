@@ -35,8 +35,8 @@ RUN apt-get update && apt-get install --no-install-recommends --no-install-sugge
 RUN apt-get install unzip
 RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
+RUN apt-get install libgit2-dev
 RUN pip install wandb
-RUN pip install libgit2-dev
 #RUN pip install pygit2
 RUN pip install dvc 'dvc[gs]'
 
