@@ -89,7 +89,7 @@ def train(config) -> None:
                 "Train Accuracy:": train_logs['accuracy'],
                 "Train IOU Score:": train_logs['iou_score'],
                 "Validation Accuracy:": valid_logs['accuracy'],
-                "Validation Score:": valid_logs['iou_score'],
+                "Validation IOU Score:": valid_logs['iou_score'],
             }
         )
         
