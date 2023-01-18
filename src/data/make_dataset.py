@@ -26,7 +26,7 @@ class ImageDataset(Dataset):
                     
         for folder in os.listdir(output_dir):
             for file in os.listdir(os.path.join(output_dir, folder)):
-                if file.endswith("color.png"):
+                if file.endswith("labelIds.png"):
                     self.output_images.append(os.path.join(output_dir, folder, file))
 
 

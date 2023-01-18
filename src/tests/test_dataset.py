@@ -23,7 +23,6 @@ def test_dataset():
         config = compose(config_name="dataset")
         import __main__
         setattr(__main__, "ImageDataset", ImageDataset)
-        print(config)
         project_dir = Path(__file__).resolve().parents[2]
         test_data = torch.load(os.path.join(project_dir, config.dataset.test_path))
         train_data = torch.load(os.path.join(project_dir, config.dataset.train_path))

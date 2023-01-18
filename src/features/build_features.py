@@ -2,54 +2,56 @@ import matplotlib.pyplot as plt
 import numpy as np
 import click
 import logging
+import os
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 from os.path import isfile, join, dirname, abspath
 import torch
-from torch.utils.data import DataLoader, Dataset
 import cv2
 import albumentations as albu
 import segmentation_models_pytorch as smp
-from torchvision import datasets, transforms
 from PIL import Image
+from ..data.make_dataset import ImageDataset
+import __main__
+setattr(__main__, "ImageDataset", ImageDataset)
 
-class ImageDataset(Dataset):
-    def __init__(self, input_dir, output_dir):
-        self.input_images = []
-        self.output_images = []
-        for folder in os.listdir(input_dir):
-            for file in os.listdir(os.path.join(input_dir, folder)):
-                if file.endswith(".png"):
-                    self.input_images.append(os.path.join(input_dir, folder, file))
+# class ImageDataset(Dataset):
+#     def __init__(self, input_dir, output_dir):
+#         self.input_images = []
+#         self.output_images = []
+#         for folder in os.listdir(input_dir):
+#             for file in os.listdir(os.path.join(input_dir, folder)):
+#                 if file.endswith(".png"):
+#                     self.input_images.append(os.path.join(input_dir, folder, file))
                     
-        for folder in os.listdir(output_dir):
-            for file in os.listdir(os.path.join(output_dir, folder)):
-                if file.endswith("labelIds.png"):
-                    self.output_images.append(os.path.join(output_dir, folder, file))
+#         for folder in os.listdir(output_dir):
+#             for file in os.listdir(os.path.join(output_dir, folder)):
+#                 if file.endswith("labelIds.png"):
+#                     self.output_images.append(os.path.join(output_dir, folder, file))
 
 
-        # self.output_images = [output_dir+f for f in os.listdir(output_dir) if f.endswith('color.png')]
-        self.input_images.sort()
-        self.output_images.sort()
-        self.transform1 = transforms.ToTensor()
-        self.transform2 = None
+#         # self.output_images = [output_dir+f for f in os.listdir(output_dir) if f.endswith('color.png')]
+#         self.input_images.sort()
+#         self.output_images.sort()
+#         self.transform1 = transforms.ToTensor()
+#         self.transform2 = None
 
-    def __len__(self):
-        return len(self.input_images)
+#     def __len__(self):
+#         return len(self.input_images)
 
-    def __getitem__(self, idx):
-        input_image = Image.open(self.input_images[idx])
-        output_image = Image.open(self.output_images[idx])
-        if self.transform1:
-            input_image = self.transform1(input_image)
-            output_image = self.transform1(output_image)
-        if self.transform2:
-            input_image = self.transform2(input_image)
-            output_image = self.transform2(output_image)
-        return input_image, output_image
+#     def __getitem__(self, idx):
+#         input_image = Image.open(self.input_images[idx])
+#         output_image = Image.open(self.output_images[idx])
+#         if self.transform1:
+#             input_image = self.transform1(input_image)
+#             output_image = self.transform1(output_image)
+#         if self.transform2:
+#             input_image = self.transform2(input_image)
+#             output_image = self.transform2(output_image)
+#         return input_image, output_image
 
 
-class Dataset(Dataset):
+class Dataset(torch.utils.data.Dataset):
     """Read images, apply augmentation and preprocessing transformations.
     
      Args:
@@ -65,7 +67,6 @@ class Dataset(Dataset):
     def __init__(
             self, 
             dataset, 
-            classes=None, 
             augmentation=None, 
             preprocessing=None,
     ):
@@ -119,7 +120,7 @@ class Dataset(Dataset):
         return image, mask
         
     def __len__(self):
-        return len(self.ids)   
+        return len(self.dataset)
         
 def to_tensor(x, **kwargs):
     return x.transpose(2, 0, 1).astype('float32')
@@ -145,19 +146,19 @@ def get_train_data(ENCODER='', ENCODER_WEIGHTS='', PROJECT_PATH=''):
     """ Preprocessing script that changes created datasets into more
         suited for training purposes
     """
-    logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
     dir_path = PROJECT_PATH
-    data_path = os.path.join(dir_path, "data/processed")
+    data_path = os.path.join(dir_path, "data_git/processed")
 
     preprocessing_fn = smp.encoders.get_preprocessing_fn(ENCODER, ENCODER_WEIGHTS)
 
     input_path_train = os.path.join(data_path, "train_set.pt")
 
     train_dataset = Dataset(input_path_train, preprocessing=get_preprocessing(preprocessing_fn))
-    torch.save(train_dataset, input_path_train)
+    
+    return train_dataset
+    # torch.save(train_dataset, input_path_train)
 
-    input_path_test = os.path.join(data_path, "test_set.pt")
+    # input_path_test = os.path.join(data_path, "test_set.pt")
 
-    test_dataset = Dataset(input_path_test, preprocessing=get_preprocessing(preprocessing_fn))
-    torch.save(test_dataset, input_path_test)
+    # test_dataset = Dataset(input_path_test, preprocessing=get_preprocessing(preprocessing_fn))
+    # torch.save(test_dataset, input_path_test)
