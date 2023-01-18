@@ -1,6 +1,6 @@
 hyperparameters:
     decoder: "Unet"
-    epochs: 2
+    epochs: 1
     encoder: "efficientnet-b3"
     encoder_depth: 5
     cuda: true
