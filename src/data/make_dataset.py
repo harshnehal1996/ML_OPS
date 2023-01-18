@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import click
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
@@ -8,45 +9,46 @@ from torchvision import datasets, transforms
 import torch
 from torch.utils.data import Dataset
 from PIL import Image
-import cv2
+import matplotlib.pyplot as plt
+
+# @click.command()
+# @click.argument('input_filepath', type=click.Path(exists=True))
+# @click.argument('output_filepath', type=click.Path())
 
 class ImageDataset(Dataset):
     def __init__(self, input_dir, output_dir):
         self.input_images = []
         self.output_images = []
-        temp_images = []
-        temp_masks = []
-        
         for folder in os.listdir(input_dir):
             for file in os.listdir(os.path.join(input_dir, folder)):
                 if file.endswith(".png"):
-                    path = os.path.join(input_dir, folder, file)
-                    image = cv2.imread(path)
-                    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                    image = cv2.resize(image, (512, 256))
-                    temp_images.append((path, image))
-
+                    self.input_images.append(os.path.join(input_dir, folder, file))
+                    
         for folder in os.listdir(output_dir):
             for file in os.listdir(os.path.join(output_dir, folder)):
                 if file.endswith("labelIds.png"):
-                    path = os.path.join(output_dir, folder, file)
-                    mask_image = cv2.imread(path)[:,:,0]
-                    mask_image = cv2.resize(mask_image, (512, 256), interpolation=cv2.INTER_NEAREST)
-                    temp_masks.append((path, mask_image))
-        
-        temp_images.sort(key=lambda x: x[0])
-        temp_masks.sort(key=lambda x: x[0])
-        assert len(temp_images) == len(temp_masks)
+                    self.output_images.append(os.path.join(output_dir, folder, file))
 
-        for i in range(len(temp_images)):
-            self.input_images(temp_images[i][1])
-            self.output_images(temp_masks[i][1])
-    
+
+        # self.output_images = [output_dir+f for f in os.listdir(output_dir) if f.endswith('color.png')]
+        self.input_images.sort()
+        self.output_images.sort()
+        self.transform1 = transforms.ToTensor()
+        self.transform2 = None
+
     def __len__(self):
         return len(self.input_images)
 
     def __getitem__(self, idx):
-        return self.input_images[idx], self.output_images[idx]
+        input_image = Image.open(self.input_images[idx])
+        output_image = Image.open(self.output_images[idx])
+        if self.transform1:
+            input_image = self.transform1(input_image)
+            output_image = self.transform1(output_image)
+        if self.transform2:
+            input_image = self.transform2(input_image)
+            output_image = self.transform2(output_image)
+        return input_image, output_image
 
 def main():
     """ Runs data processing scripts to turn raw data from (../raw) into
@@ -59,9 +61,9 @@ def main():
     processed_path = dir_path + "/data_git/processed"
     input_path_train = data_path + "/images/train"
     output_path_train = data_path + "/gtFine/train"
-    # train_cities = next(os.walk(input_path_train))[1]
+    train_cities = next(os.walk(input_path_train))[1]
 
-    # transform = transforms.Compose([transforms.ToTensor])
+    transform = transforms.Compose([transforms.ToTensor])
     train_dataset = ImageDataset(
         input_dir=input_path_train, output_dir=output_path_train
     )
