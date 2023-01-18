@@ -36,6 +36,7 @@ RUN apt-get install unzip
 RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
 RUN pip install wandb
+RUN pip install pygit2
 RUN pip install dvc 'dvc[gs]'
 
 ENV WANDB_API_KEY 54866221cbbe89ba3db8a4c4abe597c488b1153f
