@@ -9,59 +9,34 @@
 # WORKDIR /
 # RUN pip install -r requirements.txt --no-cache-dir
 
-# # Use the nvidia/cuda image as the base image
-# FROM nvidia/cuda:12.0.0-devel-ubuntu20.04
+# #Use the nvidia/cuda image as the base images
+# FROM python:3.10-slim-buster
 
-# # Update Ubuntu and install additional packages
-# RUN apt-get update && \
-#     apt-get install --no-install-recommends -y build-essential gcc && \
-#     apt-get clean && rm -rf /var/lib/apt/lists/*
+# # install python
+# RUN apt update && \
+#     apt install --no-install-recommends -y build-essential gcc && \
+#     apt clean && rm -rf /var/lib/apt/lists/*
 
-# # Download and install Anaconda
-# RUN apt-get update && apt-get install -y wget
-# RUN wget https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
-# RUN bash Anaconda3-2022.10-Linux-x86_64.sh -b
-# RUN rm Anaconda3-2022.10-Linux-x86_64.sh
-# ENV PATH="/home/anaconda/anaconda3/bin:$PATH"
+# COPY requirements.txt requirements.txt
 
-# # Copy environment.yml file and create the environment
-# COPY conda_env.yaml .
-# RUN conda env create -f conda_env.yaml
+# WORKDIR /
+# RUN pip install -r requirements.txt --no-cache-dir
 
-# # Set the working directory for future commands
-# WORKDIR /home/anaconda
 
-# # Define base image
-# FROM continuumio/miniconda3
+FROM nvidia/cuda:12.0.0-base-ubuntu20.04
+CMD nvidia-smi
 
-# # Set working directory for the project
-# WORKDIR /app
+# install python
+RUN apt update && \
+    apt install --no-install-recommends -y build-essential gcc && \
+    apt clean && rm -rf /var/lib/apt/lists/*
 
-# # Create Conda environment from the YAML file
-# COPY conda_env.yml .
-# RUN conda env create -f conda_env.yml
+#set up environment
+RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y curl
+RUN apt-get install unzip
+RUN apt-get -y install python3
+RUN apt-get -y install python3-pip
 
-# # Activate Conda environment and check if it is working properly
-# RUN conda activate env
-# RUN echo "Making sure torch is installed correctly..."
-# RUN python -c "import torch"
-# Use the nvidia/cuda image as the base image
-FROM nvidia/cuda:12.0.0-devel-ubuntu20.04
-
-# Update Ubuntu and install additional packages
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y build-essential gcc wget && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Download and install Anaconda
-RUN wget https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
-RUN bash Anaconda3-2022.10-Linux-x86_64.sh -b
-RUN rm Anaconda3-2022.10-Linux-x86_64.sh
-ENV PATH="/root/anaconda3/bin:$PATH"
-
-# Copy conda_env.yml file and create the environment
-COPY conda_env.yml .
-RUN conda env create -f conda_env.yml
-
-# Set the working directory for future commands
-WORKDIR /root/anaconda3
+COPY requirements.txt requirements.txt
+WORKDIR /
+RUN pip3 install -r requirements.txt --no-cache-dir
