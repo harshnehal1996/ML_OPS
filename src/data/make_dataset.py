@@ -1,19 +1,13 @@
 # -*- coding: utf-8 -*-
-import click
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import os
 from os.path import isfile, join, dirname, abspath
-from torchvision import datasets, transforms
+from torchvision import transforms
 import torch
 from torch.utils.data import Dataset
 from PIL import Image
-import matplotlib.pyplot as plt
-
-# @click.command()
-# @click.argument('input_filepath', type=click.Path(exists=True))
-# @click.argument('output_filepath', type=click.Path())
 
 class ImageDataset(Dataset):
     def __init__(self, input_dir, output_dir):
@@ -28,9 +22,7 @@ class ImageDataset(Dataset):
             for file in os.listdir(os.path.join(output_dir, folder)):
                 if file.endswith("labelIds.png"):
                     self.output_images.append(os.path.join(output_dir, folder, file))
-
-
-        # self.output_images = [output_dir+f for f in os.listdir(output_dir) if f.endswith('color.png')]
+        
         self.input_images.sort()
         self.output_images.sort()
         self.transform1 = transforms.ToTensor()
@@ -61,9 +53,6 @@ def main():
     processed_path = dir_path + "/data_git/processed"
     input_path_train = data_path + "/images/train"
     output_path_train = data_path + "/gtFine/train"
-    train_cities = next(os.walk(input_path_train))[1]
-
-    transform = transforms.Compose([transforms.ToTensor])
     train_dataset = ImageDataset(
         input_dir=input_path_train, output_dir=output_path_train
     )

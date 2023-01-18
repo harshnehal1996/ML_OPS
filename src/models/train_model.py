@@ -25,8 +25,8 @@ def train(config) -> None:
     tslen = int(n / 4)
     trlen = n - tslen
     train_set, val_set = torch.utils.data.random_split(dataset, [trlen, tslen])
-    trainloader = torch.utils.data.DataLoader(train_set, batch_size=args['batch_size'], shuffle=True, pin_memory=True)
-    valloader = torch.utils.data.DataLoader(val_set, batch_size=args['batch_size'])
+    trainloader = torch.utils.data.DataLoader(train_set, batch_size=args['batch_size'], shuffle=True, pin_memory=True, num_workers=8)
+    valloader = torch.utils.data.DataLoader(val_set, batch_size=args['batch_size'], num_workers=8)
     loss = eval("utils.losses.%s" % args['loss_function'])()
     metrics = [eval("utils.metrics.%s" % x)() for x in args['metrics']]
     optimizer = eval("torch.optim.%s" % args['optimizer']['name'])\

@@ -22,7 +22,7 @@ hyperparameters:
     metrics: |
       IoU
       Accuracy
-    classes: 11
+    classes: 12
     checkpoint_frequency: 5
     activation: "softmax2d"
     best_metric: "IoU"
