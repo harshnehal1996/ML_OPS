@@ -20,7 +20,7 @@ def train(config) -> None:
 
     # initialize the model
     model = SegmentationModel(config)
-    dataset = get_train_data()
+    dataset = get_train_data(**args['metadata'])
     n = len(dataset)
     tslen = int(n / 4)
     trlen = n - tslen
