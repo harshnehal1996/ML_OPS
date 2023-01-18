@@ -24,15 +24,17 @@ from make_dataset import ImageDataset
 # from make_dataset  
 from hydra import initialize, compose
 
-
+# @pytest.mark.skipif(not os.path.exists(os.path.join(project_dir, config.dataset.test_path))\
+#                     or not os.path.exists(os.path.join(project_dir, config.dataset.test_path)),\
+#                     reason="data doesn't exist")
 def test_dataset():
     with initialize(version_base=None, config_path='../conf/data/'):
         config = compose(config_name="dataset")
         import __main__
         setattr(__main__, "ImageDataset", ImageDataset)
-
-        test_data = torch.load(config.test_path)
-        train_data = torch.load(config.train_path)
+        project_dir = Path(__file__).resolve().parents[2]
+        test_data = torch.load(os.path.join(project_dir, config.dataset.test_path))
+        train_data = torch.load(os.path.join(project_dir, config.dataset.train_path))
 
         # test_loader = DataLoader(dataset=test_data, batch_size=100, shuffle=True)
         # train_loader = DataLoader(dataset=train_data, batch_size=100, shuffle=True)

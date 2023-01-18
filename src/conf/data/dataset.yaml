@@ -1,4 +1,4 @@
-datset:
-      - test_path: "/data/processed/test_set.pt"
-      - train_path: "/data/processed/train_set.pt"
+dataset:
+      test_path: "data/processed/test_set.pt"
+      train_path: "data/processed/train_set.pt"
 
