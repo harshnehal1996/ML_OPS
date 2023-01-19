@@ -1,3 +1,5 @@
 #!/bin/bash
-./app/src/data/make_dataset.py
-./app/src/models/train_model.py
+cd app
+python3 -m src.data.make_dataset
+python3 -m src.models.train_model
+

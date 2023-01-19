@@ -10,6 +10,7 @@ import segmentation_models_pytorch.utils as utils
 from ..features.build_features import get_train_data
 from .model import SegmentationModel
 from .utils import parse_inputs, load_model, save_checkpoint
+import gcsfs
 
 # load hydra config
 @hydra.main(config_path='../conf', config_name='config')
@@ -98,7 +99,7 @@ def train(config) -> None:
                 "Validation IOU Score:": valid_logs['iou_score'],
             }
         )
-
+    
     fs = gcsfs.GCSFileSystem(project='snappy-byte-374310')
 
     local_path = os.path.join(project_path, 'models/best_model.pth')
