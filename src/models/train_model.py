@@ -68,7 +68,7 @@ def train(config) -> None:
     checkpoint_frequency = args['checkpoint_frequency']
     model_save_name = 'best_model_%s.pth' % args['model_type']
     project_path = str(Path(__file__).resolve().parents[2])
-    save_path = os.path.join(project_path, model_save_name)
+    save_path = os.path.join(project_path, 'models', model_save_name)
 
     for i in range(start_epoch, args['epochs']):
         log.info('\nEpoch: {}'.format(i))

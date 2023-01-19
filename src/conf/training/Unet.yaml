@@ -1,2 +1,0 @@
-defaults:
-    - unet: efficientnet-b3
