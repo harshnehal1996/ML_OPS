@@ -40,7 +40,6 @@ RUN pip install wandb
 RUN ldconfig
 
 COPY data.dvc data.dvc
-COPY snappy-byte-374310-05973c186a11.json snappy-byte-374310-05973c186a11.json
 RUN pip install dvc 'dvc[gs]'
 RUN dvc init --no-scm
 RUN dvc remote add -d remote_storage gs://segmentation_project_data/
