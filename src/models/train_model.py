@@ -4,12 +4,11 @@ import hydra
 import torch
 import wandb
 import gcsfs
-from pathlib import Path
 import segmentation_models_pytorch as smp
 import segmentation_models_pytorch.utils as utils
 from ..features.build_features import get_train_data
 from .model import SegmentationModel
-from .utils import parse_inputs, load_model, save_checkpoint
+from .utils import parse_inputs, load_model, save_checkpoint, PROJECT_DIR
 import gcsfs
 
 # load hydra config
@@ -68,7 +67,7 @@ def train(config) -> None:
     best_metric = args['best_metric']
     checkpoint_frequency = args['checkpoint_frequency']
     model_save_name = 'best_model_%s.pth' % args['model_type']
-    project_path = str(Path(__file__).resolve().parents[2])
+    project_path = PROJECT_DIR
     save_path = os.path.join(project_path, 'models', model_save_name)
 
     for i in range(start_epoch, args['epochs']):

@@ -32,8 +32,9 @@ def process_image(image, mask_image, preprocessing_fn, crop=True):
     global CLASSES
     for key in CLASSES.keys():
         masks.append((mask_image == CLASSES[key]).astype(np.int64))
-
+    
     mask = np.stack(masks, axis=-1)
+    mask[np.logical_not(mask.any(axis=2))][10] = 1
     
     # apply preprocessing        
     if preprocessing_fn is not None:

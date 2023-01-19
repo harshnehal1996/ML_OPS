@@ -65,6 +65,7 @@ def parse_inputs(config):
 
 
     model_type = ""
+    print(config)
     for k1 in config.keys():
         for k2 in config[k1].keys():
             config = config[k1][k2]
