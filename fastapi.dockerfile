@@ -14,7 +14,8 @@ COPY models/ models/
 COPY main.py main.py
 
 WORKDIR /
-RUN echo "8\n14" | apt-get install -y libgtk2.0-dev
+RUN apt-get update
+RUN apt-get install -y libgtk2.0-dev
 RUN apt-get update && apt-get -y install libgl1
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install --upgrade google-cloud-storage

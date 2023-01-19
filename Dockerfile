@@ -12,7 +12,7 @@ RUN apt-get install unzip
 RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
 RUN apt install nano
-RUN echo -e "8\n14" | apt-get install -y libgtk2.0-dev
+RUN apt-get install -y libgtk2.0-dev
 RUN apt-get update && apt-get -y install libgl1
 RUN pip3 install --upgrade pip
 RUN pip install wandb
