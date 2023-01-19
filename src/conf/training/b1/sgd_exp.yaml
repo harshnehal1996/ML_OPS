@@ -1,5 +1,6 @@
 hyperparameters:
-    decoder: "FPN"
+    id: "exp"
+    decoder: "Unet"
     epochs: 2
     encoder: "mit_b1"
     encoder_depth: 5
