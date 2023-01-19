@@ -1,7 +1,10 @@
+import os
 import logging
 import hydra
 import torch
 import wandb
+import gcsfs
+from pathlib import Path
 import segmentation_models_pytorch as smp
 import segmentation_models_pytorch.utils as utils
 from ..features.build_features import get_train_data
@@ -64,6 +67,8 @@ def train(config) -> None:
     best_metric = args['best_metric']
     checkpoint_frequency = args['checkpoint_frequency']
     model_save_name = 'best_model_%s.pth' % args['model_type']
+    project_path = str(Path(__file__).resolve().parents[2])
+    save_path = os.path.join(project_path, model_save_name)
 
     for i in range(start_epoch, args['epochs']):
         log.info('\nEpoch: {}'.format(i))
@@ -79,7 +84,7 @@ def train(config) -> None:
         
         if max_score < valid_logs[best_metric]:
             max_score = valid_logs[best_metric]
-            torch.save(model, model_save_name)
+            torch.save(model, save_path)
             log.info('Best Model saved!')
         
         if checkpoint_frequency > 0 and (i+1) % checkpoint_frequency == 0:
@@ -93,8 +98,17 @@ def train(config) -> None:
                 "Validation IOU Score:": valid_logs['iou_score'],
             }
         )
+
+    fs = gcsfs.GCSFileSystem(project='snappy-byte-374310')
+
+    local_path = os.path.join(project_path, 'models/best_model.pth')
+
+    gcs_path = os.path.join('gs://trained_model_pt/', model_save_name)
+
+    fs.put(local_path, gcs_path)
         
     
 
 if __name__ == '__main__':
     train()
+

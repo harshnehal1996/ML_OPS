@@ -92,3 +92,4 @@ target/
 
 # hydra runs
 outputs/
+models/
