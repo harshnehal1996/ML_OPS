@@ -7,6 +7,8 @@ import segmentation_models_pytorch.utils as utils
 from ..features.build_features import get_train_data
 from .model import SegmentationModel
 from .utils import parse_inputs, load_model, save_checkpoint
+import shutil
+import gcsfs
 
 # load hydra config
 @hydra.main(config_path='../conf', config_name='config')
@@ -78,7 +80,7 @@ def train(config) -> None:
         
         if max_score < valid_logs[best_metric]:
             max_score = valid_logs[best_metric]
-            torch.save(model, './best_model.pth')
+            torch.save(model, 'models/best_model.pth')  
             log.info('Best Model saved!')
         
         if checkpoint_frequency > 0 and (i+1) % checkpoint_frequency == 0:
@@ -92,6 +94,18 @@ def train(config) -> None:
                 "Validation Score:": valid_logs['iou_score'],
             }
         )
+
+    # Create a GCS filesystem object
+    fs = gcsfs.GCSFileSystem(project='snappy-byte-374310')
+
+    # Local path to the file you want to copy
+    local_path = 'models/best_model.pth'
+
+    # GCS path to the destination file
+    gcs_path = 'gs://trained_model_pt/best_model.pt'
+
+    # Copy the file
+    fs.put(local_path, gcs_path)
         
     
 
