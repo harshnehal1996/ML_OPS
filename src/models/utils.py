@@ -4,8 +4,12 @@ from pathlib import Path
 
 PROJECT_DIR = str(Path(__file__).resolve().parents[2])
 
-def load_model(model, path):
-    model.load_decoder_weights(torch.load(path))
+def load_model(model, path, device):
+    data = torch.load(path, map_location=device)
+    model.load_decoder_weights(data['model'])
+
+def save_model(model, path):
+    torch.save({'model' : model.get_decoder_dict()}, path)
 
 def load_checkpoint(model, optimizer, checkpoint_path):
     checkpoint = torch.load(checkpoint_path)
@@ -67,10 +71,9 @@ def parse_inputs(config):
     model_type = ""
     print(config)
     for k1 in config.keys():
-        for k2 in config[k1].keys():
-            config = config[k1][k2]
-            model_type = k2 + "_" + config.hyperparameters.id
-            break
+        config = config[k1]
+        model_type = config.hyperparameters.id
+        break
     
     use_cuda = config.hyperparameters.cuda
     

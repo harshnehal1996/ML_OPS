@@ -1,17 +1,24 @@
 hyperparameters:
+    id: "b3_exp"
     decoder: "Unet"
     epochs: 1
     encoder: "efficientnet-b3"
+    encoder_depth: 5
     cuda: true
     checkpoint_path:
     downsample_ratio: 4
     loss_function: "JaccardLoss"
     batch_size: 32
     optimizer: 
-        name: Adam
+        name: SGD
         params:
-            lr: 0.01 
+            lr: 0.1
+            momentum: 0.9 
     lr_scheduler:
+        name: ExponentialLR
+        params:
+            gamma: 0.9
+            verbose: true
     seed:
     metrics: |
       IoU

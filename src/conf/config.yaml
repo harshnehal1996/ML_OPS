@@ -1,3 +1,3 @@
 defaults:
-    - training: efficientnet-b3
+    - training: b3_exp
 

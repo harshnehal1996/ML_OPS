@@ -8,7 +8,7 @@ import segmentation_models_pytorch as smp
 import segmentation_models_pytorch.utils as utils
 from ..features.build_features import get_train_data
 from .model import SegmentationModel
-from .utils import parse_inputs, load_model, save_checkpoint, PROJECT_DIR
+from .utils import parse_inputs, load_model, save_checkpoint, save_model, PROJECT_DIR
 import gcsfs
 
 # load hydra config
@@ -84,7 +84,7 @@ def train(config) -> None:
         
         if max_score < valid_logs[best_metric]:
             max_score = valid_logs[best_metric]
-            torch.save(model, save_path)
+            save_model(model, save_path)
             log.info('Best Model saved!')
         
         if checkpoint_frequency > 0 and (i+1) % checkpoint_frequency == 0:
@@ -101,7 +101,7 @@ def train(config) -> None:
     
     fs = gcsfs.GCSFileSystem(project='snappy-byte-374310')
 
-    local_path = os.path.join(project_path, 'models/best_model.pth')
+    local_path = save_path
 
     gcs_path = os.path.join('gs://trained_model_pt/', model_save_name)
 

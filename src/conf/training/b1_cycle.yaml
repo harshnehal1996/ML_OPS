@@ -1,8 +1,8 @@
 hyperparameters:
-    id: "exp"
+    id: "b1_cycle"
     decoder: "Unet"
     epochs: 1
-    encoder: "efficientnet-b3"
+    encoder: "mit_b1"
     encoder_depth: 5
     cuda: true
     checkpoint_path:
@@ -15,9 +15,11 @@ hyperparameters:
             lr: 0.1
             momentum: 0.9 
     lr_scheduler:
-        name: ExponentialLR
+        name: OneCycleLR
         params:
-            gamma: 0.9
+            max_lr: 0.01
+            epochs:
+            steps_per_epoch: 
             verbose: true
     seed:
     metrics: |
