@@ -9,6 +9,5 @@ steps:
       '--region=europe-west1',
       '--config=config_vertex_cpu.yaml',
       '--project=snappy-byte-374310']
-
 secrets:
-- secrets
+  - secrets
