@@ -13,5 +13,6 @@ pytest==7.2.1
 python-dotenv==0.21.0
 segmentation_models_pytorch==0.3.2
 setuptools==65.6.3
+starlette==0.23.1
 torch==1.13.1
 torchvision==0.14.1
