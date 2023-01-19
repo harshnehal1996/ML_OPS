@@ -46,8 +46,14 @@ RUN chmod 600 /secrets/*
 # Download the dataset from Kaggle
 RUN kaggle datasets download -d [xiaose/cityscape] -p /dataset
 
-# Unzip the downloaded dataset
-RUN unzip /dataset/[cityscapes].zip -d /data
+COPY data.dvc data.dvc
+COPY snappy-byte-374310-05973c186a11.json snappy-byte-374310-05973c186a11.json
+RUN pip install dvc 'dvc[gs]'
+RUN dvc init --no-scm
+RUN dvc remote add -d remote_storage gs://segmentation_project_data/
+
+RUN curl -sSL https://sdk.cloud.google.com | bash
+ENV PATH $PATH:/root/google-cloud-sdk/bin
 
 # Remove the downloaded zip file
 RUN rm /dataset/[cityscapes].zip

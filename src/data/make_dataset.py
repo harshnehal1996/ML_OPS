@@ -54,19 +54,19 @@ def main():
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
-    # Create a GCS filesystem object
-    fs = gcsfs.GCSFileSystem(project='snappy-byte-374310')
+    # # Create a GCS filesystem object
+    # fs = gcsfs.GCSFileSystem(project='snappy-byte-374310')
 
-    # GCS path to the source folder
-    gcs_path = 'gs://mlops-images'
+    # # GCS path to the source folder
+    # gcs_path = 'gs://mlops-images'
 
-    # Local path to the destination folder
+    # # Local path to the destination folder
     dir_path = PROJECT_DIR
 
     local_path = dir_path + "/data"
     # dir_path = dirname(dirname(dirname(abspath(__file__))))
 
-    shutil.move(fs.get_mapper(gcs_path), local_path)
+    # shutil.move(fs.get_mapper(gcs_path), local_path)
 
     data_path = dir_path + "/data/Cityspaces"
     processed_path = dir_path + "/data_git/processed"
