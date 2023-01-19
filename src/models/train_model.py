@@ -63,6 +63,7 @@ def train(config) -> None:
     )
     best_metric = args['best_metric']
     checkpoint_frequency = args['checkpoint_frequency']
+    model_save_name = 'best_model_%s.pth' % args['model_type']
 
     for i in range(start_epoch, args['epochs']):
         log.info('\nEpoch: {}'.format(i))
@@ -78,7 +79,7 @@ def train(config) -> None:
         
         if max_score < valid_logs[best_metric]:
             max_score = valid_logs[best_metric]
-            torch.save(model, './best_model_%s.pth' % args['model_type'])
+            torch.save(model, model_save_name)
             log.info('Best Model saved!')
         
         if checkpoint_frequency > 0 and (i+1) % checkpoint_frequency == 0:
