@@ -1,4 +1,5 @@
 hyperparameters:
+    id: "cycle"
     decoder: "Unet"
     epochs: 2
     encoder: "efficientnet-b3"
@@ -16,7 +17,7 @@ hyperparameters:
     lr_scheduler:
         name: OneCycleLR
         params:
-            max_lr: 0.01
+            max_lr: 0.5
             epochs:
             steps_per_epoch: 
             verbose: true

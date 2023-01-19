@@ -78,7 +78,7 @@ def train(config) -> None:
         
         if max_score < valid_logs[best_metric]:
             max_score = valid_logs[best_metric]
-            torch.save(model, './best_model.pth')
+            torch.save(model, './best_model_%s.pth' % args['model_type'])
             log.info('Best Model saved!')
         
         if checkpoint_frequency > 0 and (i+1) % checkpoint_frequency == 0:

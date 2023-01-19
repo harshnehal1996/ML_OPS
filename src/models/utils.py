@@ -2,7 +2,12 @@ import os
 import torch
 from pathlib import Path
 
-def load_model(model, optimizer, checkpoint_path):
+PROJECT_DIR = str(Path(__file__).resolve().parents[2])
+
+def load_model(model, path):
+    model.load_decoder_weights(torch.load(path))
+
+def load_checkpoint(model, optimizer, checkpoint_path):
     checkpoint = torch.load(checkpoint_path)
     model.load_decoder_weights(checkpoint['model'])
     optimizer.load_state_dict(checkpoint['optimizer'])
@@ -59,11 +64,12 @@ def parse_inputs(config):
         return dictionary
 
 
+    model_type = ""
     for k1 in config.keys():
         for k2 in config[k1].keys():
-            for k3 in config[k1][k2].keys():
-                config = config[k1][k2][k3]
-                break
+            config = config[k1][k2]
+            model_type = k2 + "_" + config.hyperparameters.id
+            break
     
     use_cuda = config.hyperparameters.cuda
     
@@ -123,7 +129,7 @@ def parse_inputs(config):
 
     metadata = {'ENCODER' : config.hyperparameters.encoder,\
                 'ENCODER_WEIGHTS' : 'imagenet',\
-                'PROJECT_PATH' : str(Path(__file__).resolve().parents[2])}
+                'PROJECT_PATH' : PROJECT_DIR}
     
     args = {'epochs' : epochs,\
             'batch_size' : batch_size,\
@@ -135,6 +141,7 @@ def parse_inputs(config):
             'optimizer' : optimizer,\
             'lr_scheduler' : lr_scheduler,\
             'checkpoint_path' : checkpoint_path,\
-            'metadata' : metadata}
+            'metadata' : metadata,\
+            'model_type' : model_type}
     
     return  config.hyperparameters, args
