@@ -409,6 +409,7 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
+![bucket](figures/bucket1.png)
 
 
 ### Question 20
