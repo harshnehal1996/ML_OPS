@@ -305,7 +305,7 @@ end of the project.
 >
 > Answer: 
 <p align="center"><img src="reports\figures\wandb1.png" alt="city_seg" width="800" height="440"/>
-<p align="center"><img src="reports\figures\wandb2.png" alt="city_seg" width="800" height="440"/>
+<p align="center"><img src="reports\figures\wandb2.png" alt="city_seg1" width="800" height="440"/>
 
 
 --- question 14 fill here ---
