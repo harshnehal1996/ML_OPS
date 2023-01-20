@@ -94,9 +94,9 @@ end of the project.
 
 ### Additional
 
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Make sure all group members have a understanding about all parts of the project
-* [ ] Uploaded all your code to github
+* [X] Revisit your initial project description. Did the project turn out as you wanted?
+* [X] Make sure all group members have a understanding about all parts of the project
+* [X] Uploaded all your code to github
 
 ## Group information
 
@@ -129,7 +129,7 @@ s222612, s222486, s212554, s222381
 >
 > Answer:
 
-In our project we used PyTorch Image Models framework
+In our project we used PyTorch Image Models framework  -------NNNNEEED TO EXPPPPPPPPPPPPPANDDDDDDDDDD-----------
 
 ## Coding environment
 
