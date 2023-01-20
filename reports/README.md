@@ -258,7 +258,7 @@ Yes, we implemented DVC to store our data on the google drive initially and then
 > Answer: 
 
 The CI that we are running are unittesting, github actions and precommit. Unittesting ran tests on the training data and the model scripts. Github actions was used to test for building the docker and carrying out the unittesting. Precommit was used to check the coding standards before committing to main.
-
+The link to our github actions workflow: https://github.com/harshnehal1996/ML_OPS/blob/main/.github/workflows/run_pytests.yml
 
 
 ## Running code and tracking experiments
