@@ -409,6 +409,7 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
+![bucket](figures/bucket1.png)
 
 
 ### Question 20
@@ -418,8 +419,8 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
---- question 20 fill here ---
-
+![registry](figures/container_registry.png)
+      
 ### Question 21
 
 > **Upload one image of your GCP cloud build history, so we can see the history of the images that have been build in**
@@ -427,7 +428,7 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
---- question 21 fill here ---
+![build_history](figures/build1.png)
 
 ### Question 22
 
