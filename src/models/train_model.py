@@ -1,4 +1,6 @@
 import os
+os.environ["GCLOUD_PROJECT"] = "snappy-byte-374310"
+
 import logging
 import hydra
 import torch

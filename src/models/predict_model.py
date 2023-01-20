@@ -1,4 +1,6 @@
 import os
+os.environ["GCLOUD_PROJECT"] = "snappy-byte-374310"
+
 import torch
 from .utils import PROJECT_DIR, load_model
 import numpy as np

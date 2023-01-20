@@ -16,10 +16,8 @@ def test_model():
         config = compose(config_name="config")
         
         for k1 in config.keys():
-            for k2 in config[k1].keys():
-                for k3 in config[k1][k2].keys():
-                    config = config[k1][k2][k3]
-                    break
+            config = config[k1]
+            break
         
         model = SegmentationModel(config.hyperparameters)
         with torch.no_grad():

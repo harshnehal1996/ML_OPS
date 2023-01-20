@@ -15,19 +15,16 @@ def test_parser():
         config = compose(config_name="config")
         
         for k1 in config.keys():
-            for k2 in config[k1].keys():
-                for k3 in config[k1][k2].keys():
-                    # config = config[k1][k2][k3]
-                    config[k1][k2][k3].hyperparameters.batch_size = 2.3
-                    
-                    with pytest.raises(ValueError, match=r"invalid batch size"):
-                        parse_inputs(config)
-                    
-                    config[k1][k2][k3].hyperparameters.batch_size = 32
-                    config[k1][k2][k3].hyperparameters.epochs = 2.3
-                    with pytest.raises(ValueError, match=r"invalid epochs value"):
-                        parse_inputs(config)
-                    
-                    config[k1][k2][k3].hyperparameters.epochs = 23
-                    parse_inputs(config)
-                    break
+            config[k1].hyperparameters.batch_size = 2.3
+            
+            with pytest.raises(ValueError, match=r"invalid batch size"):
+                parse_inputs(config)
+            
+            config[k1].hyperparameters.batch_size = 32
+            config[k1].hyperparameters.epochs = 2.3
+            with pytest.raises(ValueError, match=r"invalid epochs value"):
+                parse_inputs(config)
+            
+            config[k1].hyperparameters.epochs = 23
+            parse_inputs(config)
+            break

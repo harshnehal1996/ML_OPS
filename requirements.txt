@@ -16,3 +16,5 @@ setuptools==65.6.3
 starlette==0.22.0
 torch==1.13.1
 torchvision==0.14.1
+uvicorn
+python-multipart
