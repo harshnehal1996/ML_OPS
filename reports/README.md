@@ -52,12 +52,12 @@ end of the project.
 
 * [X] Create a git repository
 * [X] Make sure that all team members have write access to the github repository
-* [ ] Create a dedicated environment for you project to keep track of your packages
+* [X] Create a dedicated environment for you project to keep track of your packages
 * [X] Create the initial file structure using cookiecutter
 * [X] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
 * [X] Add a model file and a training script and get that running
 * [X] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project
+* [X] Remember to comply with good coding practices (`pep8`) while doing the project
 * [ ] Do a bit of code typing and remember to document essential parts of your code
 * [X] Setup version control for your data or part of your data
 * [X] Construct one or multiple docker files for your code
@@ -74,14 +74,14 @@ end of the project.
 
 * [X] Write unit tests related to the data part of your code
 * [X] Write unit tests related to model construction and or model training
-* [ ] Calculate the coverage.
+* [X] Calculate the coverage.
 * [X] Get some continuous integration running on the github repository
 * [X] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
 * [X] Create a trigger workflow for automatically building your docker images
-* [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
+* [X] Get your model training in GCP using either the Engine or Vertex AI
+* [X] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
-* [ ] Deploy your model in GCP using either Functions or Run as the backend
+* [X] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
@@ -237,7 +237,9 @@ In our project we made use of branches to increase productivity. Every member ha
 > *We did make use of DVC in the following way: ... . In the end it helped us in ... for controlling ... part of our*
 > *pipeline*
 >
-> Answer: Yes, we implemented DVC to store our data on the google drive initially and then shifted to google cloud at a later phase in the project. It was useful in multiple instances in the project. For eg, we were able to carryout DVC pull during the cloud build without copying the data. DVC also enables us to have a continuously improving dataset in the case where our project is deployed in real life where the car would record more data when it is driving and this data can also be incorporated to our dataset.
+> Answer: 
+
+Yes, we implemented DVC to store our data on the google drive initially and then shifted to google cloud at a later phase in the project. It was useful in multiple instances in the project. For eg, we were able to carryout DVC pull during the cloud build without copying the data. DVC also enables us to have a continuously improving dataset in the case where our project is deployed in real life where the car would record more data when it is driving and this data can also be incorporated to our dataset.
 
 
 
@@ -253,7 +255,9 @@ In our project we made use of branches to increase productivity. Every member ha
 > *We have organized our CI into 3 separate files: one for doing ..., one for running ... testing and one for running*
 > *... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink>*
 >
-> Answer: The CI that we are running are unittesting, github actions and precommit. Unittesting ran tests on the training data and the model scripts. Github actions was used to test for building the docker and carrying out the unittesting. Precommit was used to checking the coding standards before commiting to main.
+> Answer: 
+
+The CI that we are running are unittesting, github actions and precommit. Unittesting ran tests on the training data and the model scripts. Github actions was used to test for building the docker and carrying out the unittesting. Precommit was used to checking the coding standards before commiting to main.
 
 
 
@@ -272,9 +276,9 @@ In our project we made use of branches to increase productivity. Every member ha
 > Example:
 > *We used a simple argparser, that worked in the following way: python my_script.py --lr 1e-3 --batch_size 25*
 >
-> Answer: We used config file to run our experiments. The config files for different experiments have been created in the config folder and they were incorporated into the code using hydra. Different experiments are run by changing the experiment name in the config.yaml file and just running the train_model.py script. We plan to improve the code by passing the experiment config file for different experiments through the run command. 
+> Answer: 
 
---- question 12 fill here ---
+We used config file to run our experiments. The config files for different experiments have been created in the config folder and they were incorporated into the code using hydra. Different experiments are run by changing the experiment name in the config.yaml file and just running the train_model.py script. We plan to improve the code by passing the experiment config file for different experiments through the run command. 
 
 ### Question 13
 
@@ -287,9 +291,9 @@ In our project we made use of branches to increase productivity. Every member ha
 > *We made use of config files. Whenever an experiment is run the following happens: ... . To reproduce an experiment*
 > *one would have to do ...*
 >
-> Answer: We ensured reproducibility by using config files and hydra to store parameters for each experiment so that by running the code with different config files anyone could reproduce the experiments. Whenever an experiment is run the train_model.py takes in the config.yaml file which points to the particular experiment that we wish to run. The parameters are loaded from the config file for the particualr experiment and these are used to run the experiment. We also use docker to enhance the reproducibility.
+> Answer: 
 
---- question 13 fill here ---
+We ensured reproducibility by using config files and hydra to store parameters for each experiment so that by running the code with different config files anyone could reproduce the experiments. Whenever an experiment is run the train_model.py takes in the config.yaml file which points to the particular experiment that we wish to run. The parameters are loaded from the config file for the particualr experiment and these are used to run the experiment. We also use docker to enhance the reproducibility.
 
 ### Question 14
 
@@ -305,13 +309,12 @@ In our project we made use of branches to increase productivity. Every member ha
 > *As seen in the second image we are also tracking ... and ...*
 >
 > Answer: 
+
 <p align="center"><img src="figures\wandb1.png" alt="city_seg" width="800" height="440"/>
 <p align="center"><img src="figures\wandb2.png" alt="city_seg1" width="800" height="440"/>
       
 As seen in the figures, we tracked the Train IOU score, Validation IOU score, Train Accuracy and Validation Accuracy. The IOU scores tell us the extent of overlap between the predicted segments and the actual segmentation. The accuracy score gives us the pixelwise prediction accuracy. Both these metrices tell us the extent to which our predictions concur with the ground truth.
 
-
---- question 14 fill here ---
 
 ### Question 15
 
@@ -324,17 +327,14 @@ As seen in the figures, we tracked the Train IOU score, Validation IOU score, Tr
 > *For our project we developed several images: one for training, inference and deployment. For example to run the*
 > *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
 >
-> Answer: We used seperate docker images for training and fast API predictions. The training docker image carried out dvc pull inside the docker image and ran the make_data.py and the train_model.py scripts to generate the trained model which is stored in a google cloud bucket. The second docker image carries out the inference and deployment by running the predict_model.py on Fast API to provide us predictions for images passed to it as input. 
+> Answer: 
+We used seperate docker images for training and fast API predictions. The training docker image carried out dvc pull inside the docker image and ran the make_data.py and the train_model.py scripts to generate the trained model which is stored in a google cloud bucket. The second docker image carries out the inference and deployment by running the predict_model.py on Fast API to provide us predictions for images passed to it as input. 
 To run the training docker: docker run -it gcr.io/snappy-byte-374310/segmentation_project /bin/bash
 To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi -p 80:80 myimage
 
 > The link to the docker files are: 
       https://github.com/harshnehal1996/ML_OPS/blob/main/Dockerfile
       https://github.com/harshnehal1996/ML_OPS/blob/main/fastapi.dockerfile
-      
-
-
---- question 15 fill here ---
 
 ### Question 16
 
@@ -347,9 +347,9 @@ To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi 
 > *Debugging method was dependent on group member. Some just used ... and others used ... . We did a single profiling*
 > *run of our main code at some point that showed ...*
 >
-> Answer: Debugging methods depended on the group members and the specific bug that was encountered. When faced with bugs related to data path, connectivity etc we tried debugging using different approaches from print statements to the inbuilt python debugging. We also generated the coverage reports along with logical analysis along with stackoverflow and chatgpt for debugging and optimizing our code.
+> Answer: 
 
---- question 16 fill here ---
+Debugging methods depended on the group members and the specific bug that was encountered. When faced with bugs related to data path, connectivity etc we tried debugging using different approaches from print statements to the inbuilt python debugging. We also generated the coverage reports along with logical analysis along with stackoverflow and chatgpt for debugging and optimizing our code.
 
 ## Working in the cloud
 
@@ -364,7 +364,9 @@ To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi 
 > Example:
 > *We used the following two services: Engine and Bucket. Engine is used for... and Bucket is used for...*
 >
-> Answer: We used the following services in GCP:
+> Answer: 
+
+We used the following services in GCP:
 1. Compute Engine: We created a pytorch instance with GPU, pulled the docker container from the container registry and did the training of the model. The model after training will store the trained model in the bucket.
 2. Bucket: Two buckets were created one to store our dataset after DVC push to the remote storage and one to store our trained model.
 3. Container Registry: This was used to store our docker images for training and FastAPI prediction. 
@@ -372,8 +374,6 @@ To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi 
 5. Vertex AI: Used this service to run a custom training job on a CPU. This was configured inside the cloudbuild.yaml file.
 6. Cloud Run: This is a serverless service which ran the FastAPI container to respond to curl API requests from the end user.
 7. Secrets Manager: Stores the kaggle credentials as a secret to not expose it to the public incase if the dataset needs to be downloaded from the internet. Uploaded the kaggle.json file and it parsed the information from here.
-
---- question 17 fill here ---
 
 ### Question 18
 
@@ -401,8 +401,6 @@ We also tried creating the instance through cloud build but the docker image was
 
 We followed a hybrid model where the build of docker image was done locally and pushed to the container registry, the training and the predittion using FastAPI was done on the cloud.
 
---- question 18 fill here ---
-
 ### Question 19
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
@@ -410,7 +408,7 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
---- question 19 fill here ---
+
 
 ### Question 20
 
@@ -444,7 +442,10 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
---- question 22 fill here ---
+Yes, we did manage to deploy our application in the cloud. We imported and used the FastAPI decorator in our prediction script and packaged the application into a docker container. It was built and pushed to the container registry from the local machine and the cloud run used the container to respond to curl requests from the end user. The following is the curl command:
+
+-------------neeeeeeeeed to aaaaaaaaaaaaaaaaad curl cooooooooooooomand HEEEEEEEEEEEEEEEEERE ----------------------
+This curl command calls our application in the cloud by giving parameters in the URL such as the raw image of a city scene. The API is hit and it returns a segmented image downloaded into the user's local machine.
 
 ### Question 23
 
@@ -459,7 +460,7 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
---- question 23 fill here ---
+We could not implement monitoring mainly due to time constraints. We would have liked to do so to check for data drifting using tools like the Evidently AI framework and also create an alert system to send out alerts to people when some metric which needs to be tracked is not behaving as expected.
 
 ### Question 24
 
@@ -473,7 +474,7 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
---- question 24 fill here ---
+In total we used around 45 dollars. A lot of credits (around 38.68 dollars) were used by the compute engine instance which used a high end machine with a GPU and the training was done using this. The other services which used up credits were the cloud build and storage which took about 2 dollars each.
 
 ## Overall discussion of project
 
@@ -508,7 +509,8 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
---- question 26 fill here ---
+The biggest issue faced during the project was implementing the cloud build since our image has a size of 24gb since it carries out a dvc pull to incorporate data into it. Due to this large size, the cloud build timed out and hence we had to build the files in the local machine and then push it onto the cloud. We also faced certain authentication issues in cloud build due to the data transfer protocols for cloud. 
+Also when training the docker image in the compute engine instance, there were issues of limited RAM for the docker image. We had to perform a memory swap so that the docker image could utilize the full memory which was allocated to the instance. We had another issue where, by mistake we added the google project credentials to the github repository and it was exposed to the public which resulted in high end instances being used for crypto mining created by unknown users. Later it was realized that secrets need to be stored in the secrets manager. While building the docker image and pushing it for use by the Vertex AI service, the cloudbuid service did not have permission to create the instance. So, we had to give permissions via the IAM console. The buckets created were not able to receive the data because it was private at first and then made it public so that all services and group members could read and write data into the bucket. 
 
 ### Question 27
 
@@ -524,5 +526,5 @@ We followed a hybrid model where the build of docker image was done locally and 
 > *All members contributed to code by...*
 >
 > Answer:
-Navaneeth Kizhakkumbadan Pacha (s222486) was in charge of implementing the raw data processing and pipeline development to generate the datasets that would be used for training. He was also responsible for implementing unittesting on testdata and setting up the entire logging protocols using wandb.
---- question 27 fill here ---
+1. Navaneeth Kizhakkumbadan Pacha (s222486) was in charge of implementing the raw data processing and pipeline development to generate the datasets that would be used for training. He was also responsible for implementing unittesting on testdata and setting up the entire logging protocols using wandb.
+2. Joshua Sebastian (s212554): Involved in creating the initial cookie cutter, creating docker files and the cloudbuild.yaml file, DVC integration pointing to remote bucket in GCloud. Involved in continuous integration activites like github actions, cloud build, coverage and precommit configurations. Also setup the instances, managing secrets, vertex AI, bucket and pushing docker images to the container registry. Helped in preparing the script for the prediction using FastAPI.
