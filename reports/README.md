@@ -497,6 +497,8 @@ In total we used around 45 dollars. A lot of credits (around 38.68 dollars) were
 >
 > Answer:
 
+![architecture](figures/Architecture.png)
+
 Our starting point of the diagram is local setup, where we integrated Hydra and WANDB to create our model and training environment including logging and config. Then we pushed data to github firstly to store changes, but also to make use of github actions and testing implemented within these. From github files go straight to Cloud Build in which docker image is created and next pushed to Container Registry. Due to data version control issues we faced, another docker image containing all the data was created locally. Later on this image was also transferred to Container Registry. 
 ### Question 26
 
