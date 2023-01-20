@@ -129,7 +129,7 @@ s222612, s222486, s212554, s222381
 >
 > Answer:
 
-In our project we used PyTorch Image Models framework  -------NNNNEEED TO EXPPPPPPPPPPPPPANDDDDDDDDDD-----------
+In our project we used Segmentation models pytorch which is built over timm. It provides standard encoders trained on imagenet data. It also provides aditional functionalities to choose loss function, decoder model and APIs for train and val loop.
 
 ## Coding environment
 
@@ -446,7 +446,8 @@ We followed a hybrid model where the build of docker image was done locally and 
 
 Yes, we did manage to deploy our application in the cloud. We imported and used the FastAPI decorator in our prediction script and packaged the application into a docker container. It was built and pushed to the container registry from the local machine and the cloud run used the container to respond to curl requests from the end user. The following is the curl command:
 
--------------neeeeeeeeed to aaaaaaaaaaaaaaaaad curl cooooooooooooomand HEEEEEEEEEEEEEEEEERE ----------------------
+curl -X 'POST' 'https://modified-docker-dazyopfg7a-ew.a.run.app/prediction/b1_cycle'   -H 'accept: application/json'   -H 'Content-Type: multipart/form-data'   -F 'data=@image.png;type=image/png'
+
 This curl command calls our application in the cloud by giving parameters in the URL such as the raw image of a city scene. The API is hit and it returns a segmented image downloaded into the user's local machine.
 
 ### Question 23
