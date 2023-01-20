@@ -293,7 +293,7 @@ We used config file to run our experiments. The config files for different exper
 >
 > Answer: 
 
-We ensured reproducibility by using config files and hydra to store parameters for each experiment so that by running the code with different config files anyone could reproduce the experiments. Whenever an experiment is run the train_model.py takes in the config.yaml file which points to the particular experiment that we wish to run. The parameters are loaded from the config file for the particualr experiment and these are used to run the experiment. We also use docker to enhance the reproducibility.
+We ensured reproducibility by using config files and hydra to store parameters for each experiment so that by running the code with different config files anyone could reproduce the experiments. Whenever an experiment is run the train_model.py takes in the config.yaml file which points to the particular experiment that we wish to run. The parameters are loaded from the config file for the particular experiment and these are used to run the experiment. We also use docker to enhance the reproducibility.
 
 ### Question 14
 
@@ -313,7 +313,7 @@ We ensured reproducibility by using config files and hydra to store parameters f
 ![wandb1](figures/wandb1.png)
 ![wandb2](figures/wandb2.png)
       
-As seen in the figures, we tracked the Train IOU score, Validation IOU score, Train Accuracy and Validation Accuracy. The IOU scores tell us the extent of overlap between the predicted segments and the actual segmentation. The accuracy score gives us the pixelwise prediction accuracy. Both these metrices tell us the extent to which our predictions concur with the ground truth.
+As seen in the figures, we tracked the Train IOU score, Validation IOU score, Train Accuracy and Validation Accuracy. The IOU scores tell us the extent of overlap between the predicted segments and the actual segmentation. The accuracy score gives us the pixelwise prediction accuracy. Both these metrics tell us the extent to which our predictions concur with the ground truth.
 
 
 ### Question 15
@@ -398,9 +398,9 @@ machine type: n1-standard-8,
 
 We pulled the docker image from the container registry and did the training of the model inside this. It was found that the docker container needed more memory to run, so we configured a memory swap to use the full memory of the instance for training. 
 
-We also tried creating the instance through cloud build but the docker image was too big(around 24 GB) to be pushed to the container registry which resulted in a time out. This is the reason that we manually had to do the training on the compute instance. T
+We also tried creating the instance through cloud build but the docker image was too big(around 24 GB) to be pushed to the container registry which resulted in a time out. This is the reason that we manually had to do the training on the compute instance. 
 
-We followed a hybrid model where the build of docker image was done locally and pushed to the container registry, the training and the predittion using FastAPI was done on the cloud.
+We followed a hybrid model where the build of docker image was done locally and pushed to the container registry, the training and the prediction using FastAPI was done on the cloud.
 
 ### Question 19
 
