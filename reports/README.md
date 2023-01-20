@@ -391,10 +391,10 @@ We used the following services in GCP:
 
 We used the compute engine to train our model. It has the following hardware: 
 
-machine type: n1-standard-8
-accelerator: 1 x NVIDIA V100
-size: 128 GB
-RAM: 32 gb
+machine type: n1-standard-8,
+ accelerator: 1 x NVIDIA V100,
+ size: 128 GB,
+ RAM: 32 gb
 
 We pulled the docker image from the container registry and did the training of the model inside this. It was found that the docker container needed more memory to run, so we configured a memory swap to use the full memory of the instance for training. 
 
