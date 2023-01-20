@@ -310,8 +310,8 @@ We ensured reproducibility by using config files and hydra to store parameters f
 >
 > Answer: 
 
-<p align="center"><img src="figures\wandb1.png" alt="city_seg" width="800" height="440"/>
-<p align="center"><img src="figures\wandb2.png" alt="city_seg1" width="800" height="440"/>
+![wandb1](figures/wandb1.png)
+![wandb2](figures/wandb2.png)
       
 As seen in the figures, we tracked the Train IOU score, Validation IOU score, Train Accuracy and Validation Accuracy. The IOU scores tell us the extent of overlap between the predicted segments and the actual segmentation. The accuracy score gives us the pixelwise prediction accuracy. Both these metrices tell us the extent to which our predictions concur with the ground truth.
 
