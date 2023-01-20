@@ -209,7 +209,7 @@ In total we have implemented 3 tests to test data, model and training. Data test
 > Answer:
 
 Our code had coverage of 69%. 
-Even though Code coverage of 100% sounds nice, because every part of the code was tested, we should not trust the code to be completely bug free. To achieve 100% code coverage in bigger project we would probably have to change code parts to invoke certain assertion and artificially improve code coverage without improving code quality. In fact these tests could slow down runtime of our program. Also if to many changes like this were to happen bugs can appear undetected sooner or later.
+Even though Code coverage of 100% sounds nice, because every part of the code was tested, we should not trust the code to be completely bug free. To achieve 100% code coverage in bigger project we would probably have to change code parts to invoke certain assertion and artificially improve code coverage without improving code quality. In fact these tests could slow down runtime of our program. Also if too many changes like this were to happen bugs can appear undetected sooner or later.
 
 ### Question 9
 
@@ -224,7 +224,7 @@ Even though Code coverage of 100% sounds nice, because every part of the code wa
 >
 > Answer:
 
-In our project we made use of branches to increase productivity. Every member had his own branch to test new functionalities and fix bugs without interfering in work of others. Also the main branch was mostly free of bugs and unfinnished "TODO" parts. Although even with that we had to browse through commit history to pull previous version replaced by omitment. We abstained from using pull requests though. Mainly due to the rush and inconveniences with pushing data to google cloud platform. Despite that, we know value of pull requests even more evident in bigger projects. Code verification before publishing prevents plenty of bugs from happening.
+In our project we made use of branches to increase productivity. Every member had his own branch to test new functionalities and fix bugs without interfering in work of others. Also the main branch was mostly free of bugs and unfinished "TODO" parts. Although even with that we had to browse through commit history to pull previous version replaced by omitment. We abstained from using pull requests though. Mainly due to the rush and inconveniences with pushing data to google cloud platform. Despite that, we know value of pull requests is even more evident in bigger projects. Code verification before publishing prevents plenty of bugs from happening.
 
 ### Question 10
 
@@ -257,7 +257,7 @@ Yes, we implemented DVC to store our data on the google drive initially and then
 >
 > Answer: 
 
-The CI that we are running are unittesting, github actions and precommit. Unittesting ran tests on the training data and the model scripts. Github actions was used to test for building the docker and carrying out the unittesting. Precommit was used to checking the coding standards before commiting to main.
+The CI that we are running are unittesting, github actions and precommit. Unittesting ran tests on the training data and the model scripts. Github actions was used to test for building the docker and carrying out the unittesting. Precommit was used to check the coding standards before committing to main.
 
 
 
