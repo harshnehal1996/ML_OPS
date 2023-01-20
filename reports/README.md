@@ -364,7 +364,14 @@ To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi 
 > Example:
 > *We used the following two services: Engine and Bucket. Engine is used for... and Bucket is used for...*
 >
-> Answer: GCP services
+> Answer: We used the following services in GCP:
+1. Compute Engine: We created a pytorch instance with GPU, pulled the docker container from the container registry and did the training of the model. The model after training will store the trained model in the bucket.
+2. Bucket: Two buckets were created one to store our dataset after DVC push to the remote storage and one to store our trained model.
+3. Container Registry: This was used to store our docker images for training and FastAPI prediction. 
+4. Cloud Build: We used cloud build to create the infrastructure to build and push the docker images to the container registry and for creating the instances.
+5. Vertex AI: Used this service to run a custom training job on a CPU. This was configured inside the cloudbuild.yaml file.
+6. Cloud Run: This is a serverless service which ran the FastAPI container to respond to curl API requests from the end user.
+7. Secrets Manager: Stores the kaggle credentials as a secret to not expose it to the public incase if the dataset needs to be downloaded from the internet. Uploaded the kaggle.json file and it parsed the information from here.
 
 --- question 17 fill here ---
 
@@ -380,6 +387,19 @@ To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi 
 > *using a custom container: ...*
 >
 > Answer:
+
+We used the compute engine to train our model. It has the following hardware: 
+
+machine type: n1-standard-8
+accelerator: 1 x NVIDIA V100
+size: 128 GB
+RAM: 32 gb
+
+We pulled the docker image from the container registry and did the training of the model inside this. It was found that the docker container needed more memory to run, so we configured a memory swap to use the full memory of the instance for training. 
+
+We also tried creating the instance through cloud build but the docker image was too big(around 24 GB) to be pushed to the container registry which resulted in a time out. This is the reason that we manually had to do the training on the compute instance. T
+
+We followed a hybrid model where the build of docker image was done locally and pushed to the container registry, the training and the predittion using FastAPI was done on the cloud.
 
 --- question 18 fill here ---
 
