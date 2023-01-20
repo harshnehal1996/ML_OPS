@@ -6,10 +6,10 @@ PROJECT_DIR = str(Path(__file__).resolve().parents[2])
 
 def load_model(model, path, device):
     data = torch.load(path, map_location=device)
-    model.load_decoder_weights(data['model'])
+    model.model.load_state_dict(data['model'])
 
 def save_model(model, path):
-    torch.save({'model' : model.get_decoder_dict()}, path)
+    torch.save({'model' : model.model.state_dict()}, path)
 
 def load_checkpoint(model, optimizer, checkpoint_path):
     checkpoint = torch.load(checkpoint_path)

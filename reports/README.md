@@ -236,9 +236,9 @@ end of the project.
 > *We did make use of DVC in the following way: ... . In the end it helped us in ... for controlling ... part of our*
 > *pipeline*
 >
-> Answer:
+> Answer: Yes, we implemented DVC to store our data on the google drive initially and then shifted to google cloud at a later phase in the project. It was useful in multiple instances in the project. For eg, we were able to carryout DVC pull during the cloud build without copying the data. DVC also enables us to have a continuously improving dataset in the case where our project is deployed in real life where the car would record more data when it is driving and this data can also be incorporated to our dataset.
 
---- question 10 fill here ---
+
 
 ### Question 11
 
@@ -252,9 +252,9 @@ end of the project.
 > *We have organized our CI into 3 separate files: one for doing ..., one for running ... testing and one for running*
 > *... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink>*
 >
-> Answer:
+> Answer: The CI that we are running are unittesting, github actions and precommit. Unittesting ran tests on the training data and the model scripts. Github actions was used to test for building the docker and carrying out the unittesting. Precommit was used to checking the coding standards before commiting to main.
 
---- question 11 fill here ---
+
 
 ## Running code and tracking experiments
 
@@ -271,7 +271,7 @@ end of the project.
 > Example:
 > *We used a simple argparser, that worked in the following way: python my_script.py --lr 1e-3 --batch_size 25*
 >
-> Answer:
+> Answer: We used config file to run our experiments. The config files for different experiments have been created in the config folder and they were incorporated into the code using hydra. Different experiments are run by changing the experiment name in the config.yaml file and just running the train_model.py script. We plan to improve the code by passing the experiment config file for different experiments through the run command. 
 
 --- question 12 fill here ---
 
@@ -286,7 +286,7 @@ end of the project.
 > *We made use of config files. Whenever an experiment is run the following happens: ... . To reproduce an experiment*
 > *one would have to do ...*
 >
-> Answer:
+> Answer: We ensured reproducibility by using config files and hydra to store parameters for each experiment so that by running the code with different config files anyone could reproduce the experiments. Whenever an experiment is run the train_model.py takes in the config.yaml file which points to the particular experiment that we wish to run. The parameters are loaded from the config file for the particualr experiment and these are used to run the experiment. We also use docker to enhance the reproducibility.
 
 --- question 13 fill here ---
 
@@ -303,7 +303,10 @@ end of the project.
 > *As seen in the first image when have tracked ... and ... which both inform us about ... in our experiments.*
 > *As seen in the second image we are also tracking ... and ...*
 >
-> Answer:
+> Answer: 
+<p align="center"><img src="figures\wandb1.png" alt="city_seg" width="800" height="440"/>
+<p align="center"><img src="figures\wandb2.png" alt="city_seg1" width="800" height="440"/>
+
 
 --- question 14 fill here ---
 
