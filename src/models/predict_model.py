@@ -2,6 +2,8 @@ import os
 os.environ["GCLOUD_PROJECT"] = "snappy-byte-374310"
 
 import torch
+torch.manual_seed(1)
+
 from .utils import PROJECT_DIR, load_model
 import numpy as np
 from ..features.build_features import process_image, CLASSES, get_preprocessing
@@ -24,7 +26,24 @@ models = {}
 max_p = max([CLASSES[k] for k in CLASSES.keys()])
 I2P = [0 for _ in range(len(CLASSES))]
 for i, k in enumerate(CLASSES.keys()):
-    I2P[i] = np.array([128, max(int(float(CLASSES[k]) * 255 / max_p), 255), max(int(float(CLASSES[k]) * 255 / max_p), 255)], dtype=np.uint8)
+    I2P[i] = np.array([128, min(int(float(CLASSES[k]) * 255 / max_p), 255), min(int(float(CLASSES[k]) * 255 / max_p), 255)], dtype=np.uint8)
+
+I2P = [(29,49,193),\
+     (49, 184, 193),\
+     (28, 219, 53),\
+     (219, 28, 41),\
+     (8, 252, 8),\
+     (196, 0, 255),\
+     (255, 255, 255),\
+     (226, 226, 111),\
+     (12, 17, 170),\
+     (226, 111, 111),\
+     (0, 0, 0),\
+     (155, 155, 155)]
+
+for i in range(len(CLASSES)):
+    I2P[i] = np.array(list(I2P[i])[::-1])
+
 
 def set_model(model_type):
     if model_type not in ['b1_exp', 'b3_exp', 'b1_cycle', 'b3_cycle']:

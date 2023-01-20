@@ -1,7 +1,7 @@
 hyperparameters:
     id: "b3_cycle"
     decoder: "Unet"
-    epochs: 2
+    epochs: 45
     encoder: "efficientnet-b3"
     encoder_depth: 5
     cuda: true
