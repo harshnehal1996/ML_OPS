@@ -500,7 +500,11 @@ In total we used around 45 dollars. A lot of credits (around 38.68 dollars) were
 
 ![architecture](figures/Architecture.png)
 
-Our starting point of the diagram is local setup, where we integrated Hydra and WANDB to create our model and training environment including logging and config. Then we pushed data to github firstly to store changes, but also to make use of github actions and testing implemented within these. From github files go straight to Cloud Build in which docker image is created and next pushed to Container Registry. Due to data version control issues we faced, another docker image containing all the data was created locally. Later on this image was also transferred to Container Registry. 
+Our starting point of the diagram is the local setup, where we integrated Hydra and W&B to create our model and training environment including logging and configuration. Then we pushed data to github firstly to store changes, but also to make use of github actions and testing implemented within these which is a part of continuous integration. We also integrated DVC to pull the latest version of the dataset from the remote storage such as Google Drive or the GCloud Bucket. Next the Cloud Build Trigger is setup in the GCloud console and will start the build process when all the tests have passed in GitHub Actions. When the docker image is built, it is then pushed to the container registry. 
+
+In our case, the docker file built for training was too large (around 24 GB), so the build failed due to a timeout issue. Then we decided to locally build the docker image and push to the GCloud container registry. Next the Compute Engine instance pulls the image from the container registry and starts the training process. The trained models are then stored in the GCloud Bucket. 
+
+Next for Cloud Deployment we use a service called Cloud Run which will pull the container which has the FastAPI application and respond to POST API requests from the end user. The user sends feedback to the developer to improvize on the model. This completes the MLOps pipeline.
 ### Question 26
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
