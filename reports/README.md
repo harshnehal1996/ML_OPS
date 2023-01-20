@@ -524,5 +524,5 @@ We followed a hybrid model where the build of docker image was done locally and 
 > *All members contributed to code by...*
 >
 > Answer:
-
+Navaneeth Kizhakkumbadan Pacha (s222486) was in charge of implementing the raw data processing and pipeline development to generate the datasets that would be used for training. He was also responsible for implementing unittesting on testdata and setting up the entire logging protocols using wandb.
 --- question 27 fill here ---
