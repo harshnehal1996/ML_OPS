@@ -306,6 +306,8 @@ end of the project.
 > Answer: 
 <p align="center"><img src="figures\wandb1.png" alt="city_seg" width="800" height="440"/>
 <p align="center"><img src="figures\wandb2.png" alt="city_seg1" width="800" height="440"/>
+      
+As seen in the figures, we tracked the Train IOU score, Validation IOU score, Train Accuracy and Validation Accuracy. The IOU scores tell us the extent of overlap between the predicted segments and the actual segmentation. The accuracy score gives us the pixelwise prediction accuracy. Both these metrices tell us the extent to which our predictions concur with the ground truth.
 
 
 --- question 14 fill here ---
@@ -321,7 +323,15 @@ end of the project.
 > *For our project we developed several images: one for training, inference and deployment. For example to run the*
 > *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
 >
-> Answer:
+> Answer: We used seperate docker images for training and fast API predictions. The training docker image carried out dvc pull inside the docker image and ran the make_data.py and the train_model.py scripts to generate the trained model which is stored in a google cloud bucket. The second docker image carries out the inference and deployment by running the predict_model.py on Fast API to provide us predictions for images passed to it as input. 
+To run the training docker: docker run -it gcr.io/snappy-byte-374310/segmentation_project /bin/bash
+To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi -p 80:80 myimage
+
+> The link to the docker files are: 
+      https://github.com/harshnehal1996/ML_OPS/blob/main/Dockerfile
+      https://github.com/harshnehal1996/ML_OPS/blob/main/fastapi.dockerfile
+      
+
 
 --- question 15 fill here ---
 
@@ -336,7 +346,7 @@ end of the project.
 > *Debugging method was dependent on group member. Some just used ... and others used ... . We did a single profiling*
 > *run of our main code at some point that showed ...*
 >
-> Answer:
+> Answer: Debugging methods depended on the group members and the specific bug that was encountered. When faced with bugs related to data path, connectivity etc we tried debugging using different approaches from print statements to the inbuilt python debugging. We also generated the coverage reports along with logical analysis along with stackoverflow and chatgpt for debugging and optimizing our code.
 
 --- question 16 fill here ---
 
@@ -353,7 +363,7 @@ end of the project.
 > Example:
 > *We used the following two services: Engine and Bucket. Engine is used for... and Bucket is used for...*
 >
-> Answer:
+> Answer: GCP services
 
 --- question 17 fill here ---
 
