@@ -328,11 +328,12 @@ As seen in the figures, we tracked the Train IOU score, Validation IOU score, Tr
 > *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
 >
 > Answer: 
+      
 We used seperate docker images for training and fast API predictions. The training docker image carried out dvc pull inside the docker image and ran the make_data.py and the train_model.py scripts to generate the trained model which is stored in a google cloud bucket. The second docker image carries out the inference and deployment by running the predict_model.py on Fast API to provide us predictions for images passed to it as input. 
 To run the training docker: docker run -it gcr.io/snappy-byte-374310/segmentation_project /bin/bash
 To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi -p 80:80 myimage
 
-> The link to the docker files are: 
+The link to the docker files are: 
       https://github.com/harshnehal1996/ML_OPS/blob/main/Dockerfile
       https://github.com/harshnehal1996/ML_OPS/blob/main/fastapi.dockerfile
 
