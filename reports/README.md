@@ -237,7 +237,8 @@ In our project we made use of branches to increase productivity. Every member ha
 > *We did make use of DVC in the following way: ... . In the end it helped us in ... for controlling ... part of our*
 > *pipeline*
 >
-> Answer: Yes, we implemented DVC to store our data on the google drive initially and then shifted to google cloud at a later phase in the project. It was useful in multiple instances in the project. For eg, we were able to carryout DVC pull during the cloud build without copying the data. DVC also enables us to have a continuously improving dataset in the case where our project is deployed in real life where the car would record more data when it is driving and this data can also be incorporated to our dataset.
+> Answer: 
+Yes, we implemented DVC to store our data on the google drive initially and then shifted to google cloud at a later phase in the project. It was useful in multiple instances in the project. For eg, we were able to carryout DVC pull during the cloud build without copying the data. DVC also enables us to have a continuously improving dataset in the case where our project is deployed in real life where the car would record more data when it is driving and this data can also be incorporated to our dataset.
 
 
 
@@ -253,7 +254,8 @@ In our project we made use of branches to increase productivity. Every member ha
 > *We have organized our CI into 3 separate files: one for doing ..., one for running ... testing and one for running*
 > *... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink>*
 >
-> Answer: The CI that we are running are unittesting, github actions and precommit. Unittesting ran tests on the training data and the model scripts. Github actions was used to test for building the docker and carrying out the unittesting. Precommit was used to checking the coding standards before commiting to main.
+> Answer: 
+The CI that we are running are unittesting, github actions and precommit. Unittesting ran tests on the training data and the model scripts. Github actions was used to test for building the docker and carrying out the unittesting. Precommit was used to checking the coding standards before commiting to main.
 
 
 
@@ -272,7 +274,8 @@ In our project we made use of branches to increase productivity. Every member ha
 > Example:
 > *We used a simple argparser, that worked in the following way: python my_script.py --lr 1e-3 --batch_size 25*
 >
-> Answer: We used config file to run our experiments. The config files for different experiments have been created in the config folder and they were incorporated into the code using hydra. Different experiments are run by changing the experiment name in the config.yaml file and just running the train_model.py script. We plan to improve the code by passing the experiment config file for different experiments through the run command. 
+> Answer: 
+We used config file to run our experiments. The config files for different experiments have been created in the config folder and they were incorporated into the code using hydra. Different experiments are run by changing the experiment name in the config.yaml file and just running the train_model.py script. We plan to improve the code by passing the experiment config file for different experiments through the run command. 
 
 --- question 12 fill here ---
 
@@ -287,7 +290,8 @@ In our project we made use of branches to increase productivity. Every member ha
 > *We made use of config files. Whenever an experiment is run the following happens: ... . To reproduce an experiment*
 > *one would have to do ...*
 >
-> Answer: We ensured reproducibility by using config files and hydra to store parameters for each experiment so that by running the code with different config files anyone could reproduce the experiments. Whenever an experiment is run the train_model.py takes in the config.yaml file which points to the particular experiment that we wish to run. The parameters are loaded from the config file for the particualr experiment and these are used to run the experiment. We also use docker to enhance the reproducibility.
+> Answer: 
+We ensured reproducibility by using config files and hydra to store parameters for each experiment so that by running the code with different config files anyone could reproduce the experiments. Whenever an experiment is run the train_model.py takes in the config.yaml file which points to the particular experiment that we wish to run. The parameters are loaded from the config file for the particualr experiment and these are used to run the experiment. We also use docker to enhance the reproducibility.
 
 --- question 13 fill here ---
 
@@ -324,11 +328,12 @@ As seen in the figures, we tracked the Train IOU score, Validation IOU score, Tr
 > *For our project we developed several images: one for training, inference and deployment. For example to run the*
 > *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
 >
-> Answer: We used seperate docker images for training and fast API predictions. The training docker image carried out dvc pull inside the docker image and ran the make_data.py and the train_model.py scripts to generate the trained model which is stored in a google cloud bucket. The second docker image carries out the inference and deployment by running the predict_model.py on Fast API to provide us predictions for images passed to it as input. 
+> 
+Answer: We used seperate docker images for training and fast API predictions. The training docker image carried out dvc pull inside the docker image and ran the make_data.py and the train_model.py scripts to generate the trained model which is stored in a google cloud bucket. The second docker image carries out the inference and deployment by running the predict_model.py on Fast API to provide us predictions for images passed to it as input. 
 To run the training docker: docker run -it gcr.io/snappy-byte-374310/segmentation_project /bin/bash
 To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi -p 80:80 myimage
 
-> The link to the docker files are: 
+The link to the docker files are: 
       https://github.com/harshnehal1996/ML_OPS/blob/main/Dockerfile
       https://github.com/harshnehal1996/ML_OPS/blob/main/fastapi.dockerfile
       
@@ -347,7 +352,8 @@ To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi 
 > *Debugging method was dependent on group member. Some just used ... and others used ... . We did a single profiling*
 > *run of our main code at some point that showed ...*
 >
-> Answer: Debugging methods depended on the group members and the specific bug that was encountered. When faced with bugs related to data path, connectivity etc we tried debugging using different approaches from print statements to the inbuilt python debugging. We also generated the coverage reports along with logical analysis along with stackoverflow and chatgpt for debugging and optimizing our code.
+> Answer: 
+Debugging methods depended on the group members and the specific bug that was encountered. When faced with bugs related to data path, connectivity etc we tried debugging using different approaches from print statements to the inbuilt python debugging. We also generated the coverage reports along with logical analysis along with stackoverflow and chatgpt for debugging and optimizing our code.
 
 --- question 16 fill here ---
 
@@ -364,7 +370,8 @@ To run the Fast API docker: docker run --name gcr.io/snappy-byte-374310/fastapi 
 > Example:
 > *We used the following two services: Engine and Bucket. Engine is used for... and Bucket is used for...*
 >
-> Answer: We used the following services in GCP:
+> Answer: 
+We used the following services in GCP:
 1. Compute Engine: We created a pytorch instance with GPU, pulled the docker container from the container registry and did the training of the model. The model after training will store the trained model in the bucket.
 2. Bucket: Two buckets were created one to store our dataset after DVC push to the remote storage and one to store our trained model.
 3. Container Registry: This was used to store our docker images for training and FastAPI prediction. 
@@ -410,7 +417,7 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
---- question 19 fill here ---
+<p align="center"><img src="figures\bucket1.png" alt="city_seg" width="800" height="440"/>
 
 ### Question 20
 
@@ -419,7 +426,7 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
---- question 20 fill here ---
+<p align="center"><img src="figures\container_registry.png" alt="city_seg" width="800" height="440"/>
 
 ### Question 21
 
@@ -428,7 +435,7 @@ We followed a hybrid model where the build of docker image was done locally and 
 >
 > Answer:
 
---- question 21 fill here ---
+<p align="center"><img src="figures\build1.png" alt="city_seg" width="800" height="440"/>
 
 ### Question 22
 
