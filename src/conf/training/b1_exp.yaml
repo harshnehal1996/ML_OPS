@@ -1,8 +1,8 @@
 hyperparameters:
-    id: "exp"
+    id: "b1_exp"
     decoder: "Unet"
-    epochs: 1
-    encoder: "efficientnet-b3"
+    epochs: 2
+    encoder: "mit_b1"
     encoder_depth: 5
     cuda: true
     checkpoint_path:

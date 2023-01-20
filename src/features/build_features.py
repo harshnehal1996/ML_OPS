@@ -22,8 +22,7 @@ CLASSES = {'sky' : 23,\
         'pavement' : 6
         }
 
-
-def process_image(image, mask_image, preprocessing_fn, crop=True):
+def process_image(image, mask_image, preprocessing_fn,  crop=True):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image = cv2.resize(image, (512, 256))
     mask_image = cv2.resize(mask_image, (512, 256), interpolation=cv2.INTER_NEAREST)
@@ -32,9 +31,13 @@ def process_image(image, mask_image, preprocessing_fn, crop=True):
     global CLASSES
     for key in CLASSES.keys():
         masks.append((mask_image == CLASSES[key]).astype(np.int64))
-
-    mask = np.stack(masks, axis=-1)
     
+    mask = np.stack(masks, axis=-1)
+    n_mask = np.logical_not(mask.any(axis=-1))
+
+    if np.sum(n_mask) > 0:
+        mask[n_mask, 10] = 1
+
     # apply preprocessing        
     if preprocessing_fn is not None:
         sample = preprocessing_fn(image=image, mask=mask)
@@ -50,7 +53,7 @@ def process_image(image, mask_image, preprocessing_fn, crop=True):
     
     return torch.FloatTensor(image), torch.FloatTensor(mask)
 
-
+#added comment
 class Dataset(torch.utils.data.Dataset):    
     def __init__(
             self, 
