@@ -36,7 +36,7 @@ There are 3475 finely annotated images including train and validation. There are
 
 We plan to use timm-efficientnet-b2 as an encoder as it has 7M parameters which are pretrained and Unet as decoder which has 4 Million parameters required to be trained. The segmentation_head API from segmentation_models.pytorch will help us define the number of channels in the output mask.
 
-TIMM models are scriptable and exportable. Hence we plan to use torchFX to visualize output of different layers. The trained models will be exported to ONNX format. TIMM also provides the functionality to build data augmentation pipelines.
+TIMM models are scriptable, exportable and also provides the functionality to build data augmentation pipelines.
 
 Project Organization
 ------------
