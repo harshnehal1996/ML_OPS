@@ -504,7 +504,7 @@ Our starting point of the diagram is the local setup, where we integrated Hydra 
 
 In our case, the docker file built for training was too large (around 24 GB), so the build failed due to a timeout issue. Then we decided to locally build the docker image and push to the GCloud container registry. Next the Compute Engine instance pulls the image from the container registry and starts the training process. The trained models are then stored in the GCloud Bucket. 
 
-Next for Cloud Deployment we use a service called Cloud Run which will pull the container which has the FastAPI application and respond to POST API requests from the end user. The user sends feedback to the developer to improvize on the model. This completes the MLOps pipeline.
+Next for Cloud Deployment we use a service called Cloud Run which will pull the container which has the FastAPI application. The FastAPI application is used for prediction and fetches the trained model weights from the GCloud Bucket. Cloud Run then responds to POST API requests from the end user where the user uploads a raw image of the cityscapes scene. The user then receives a response with the segmented image of the scene and sends feedback to the developer to improvize on the model if needed. This completes the MLOps pipeline.
 ### Question 26
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
